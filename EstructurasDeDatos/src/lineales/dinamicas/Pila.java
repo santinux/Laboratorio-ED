@@ -1,6 +1,6 @@
 package lineales.dinamicas;
 /**
- * Implementación del TDA Pila Estática
+ * Implementación del TDA Pila Dinámica
  * @author santino.fuentes
  * @version 1.0
  */
@@ -70,6 +70,36 @@ public class Pila
          */
         public void vaciar()
         {
-                // TODO
+                while (this.tope != null) {
+                        // Actualiza el tope con el enlace al nodo anterior.
+                        this.tope = tope.getEnlace();
+                }
+        }
+        
+        /**
+         * Devuelve una copia exacta de los datos en la estructura original, y
+         * respetando el orden de los mismos, en otra estructura del mismo tipo.
+         * @return Pila Un clon de la pila original (como la oveja Dolly).
+         */
+        public Pila clonar()
+        {
+                Pila dolly = new Pila();
+                //TODO
+                
+                return (dolly);
+        }
+        
+        /**
+         * Devuelve una cadena de caracteres formada por todos los
+         * elementos de la pila.
+         * @return String Cadena de caracteres formateada.
+         */
+        @Override
+        public String toString()
+        {
+                String cadena = "[";
+                //TODO
+                
+                return (cadena + "]");
         }
 }

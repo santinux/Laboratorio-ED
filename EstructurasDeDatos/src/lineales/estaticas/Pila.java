@@ -6,7 +6,7 @@ package lineales.estaticas;
  */
 public class Pila
 {
-        private static final int TAMAGNO = 20;
+        private static final int TAMAGNO = 10;
         private Object[] arreglo;
         private int tope;
         

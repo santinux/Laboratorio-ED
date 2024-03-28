@@ -54,15 +54,15 @@ public class TestingPila {
         System.out.println("Recupera tope espera 10 recupera: " + (int) p1.obtenerTope() + "\t\t\t" + (((int) p1.obtenerTope() == 10) ? sOk : sErr));
 
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p1.desapilar()) ? sOk : sErr));
-        System.out.println("espera \t1,2,3,4,5,6,7,8,9 recupera \t\t\t\t--> " + p1.toString());
+        System.out.println("espera \t[1,2,3,4,5,6,7,8,9] recupera \t\t\t\t--> " + p1.toString());
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p1.desapilar()) ? sOk : sErr));
-        System.out.println("espera \t1,2,3,4,5,6,7,8 recupera \t\t\t\t--> " + p1.toString());
+        System.out.println("espera \t[1,2,3,4,5,6,7,8] recupera \t\t\t\t--> " + p1.toString());
         System.out.println("Apila 6: \t\t\t\t\t\t" + ((p1.apilar(6)) ? sOk : sErr));
-        System.out.println("espera \t1,2,3,4,5,6,7,8,6 recupera \t\t\t\t--> " + p1.toString());
+        System.out.println("espera \t[1,2,3,4,5,6,7,8,6] recupera \t\t\t\t--> " + p1.toString());
         System.out.println("Recupera tope, espera 6 recupera " + (int) p1.obtenerTope() + "\t\t\t" + (((int) p1.obtenerTope() == 6) ? sOk : sErr));
 
         Pila p2 = p1.clonar();
-        System.out.println("Copia espera 1,2,3,4,5,6,7,8,6: \t\t\t\t--> " + p2.toString());
+        System.out.println("Copia espera [1,2,3,4,5,6,7,8,6]: \t\t\t\t--> " + p2.toString());
 
         while (!p1.esVacia()) {
             System.out.print("Desapila espera true: \t\t\t\t\t" + ((p1.desapilar()) ? sOk : sErr));
@@ -73,9 +73,9 @@ public class TestingPila {
         System.out.println("Desapila en pila vacia espera false: \t\t\t" + ((p1.desapilar()) ? sErr : sOk));
         System.out.println("Verifica tope en pila vacia espera null: \t\t" + ((p1.obtenerTope() == null) ? sOk : sErr));
 
-        System.out.println("Verifica copia 1,2,3,4,5,6,7,8,6: \t\t\t\t-->" + p2.toString());
+        System.out.println("Verifica copia [1,2,3,4,5,6,7,8,6]: \t\t\t\t-->" + p2.toString());
         System.out.println("Apila 7: \t\t\t\t\t\t" + ((p2.apilar(7)) ? sOk : sErr));
-        System.out.println("Verifica copia 1,2,3,4,5,6,7,8,6,7: \t\t\t\t-->" + p2.toString());
+        System.out.println("Verifica copia [1,2,3,4,5,6,7,8,6,7]: \t\t\t\t-->" + p2.toString());
         System.out.println("Apila 8 espera false en estatica true en dinamica:\t" + p2.apilar(8));
         System.out.println("Apila 9 espera false en estatica true en dinamica:\t" + p2.apilar(9));
 
@@ -85,13 +85,13 @@ public class TestingPila {
             p2.desapilar();
         }
 
-        System.out.println("Verifica copia modificada 1,2,3,4,5,6,7,8,6,7: \t\t\t--> " + p2.toString());
+        System.out.println("Verifica copia modificada [1,2,3,4,5,6,7,8,6,7]: \t\t--> " + p2.toString());
 
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p2.desapilar()) ? sOk : sErr));
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p2.desapilar()) ? sOk : sErr));
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p2.desapilar()) ? sOk : sErr));
         System.out.println("Desapila: \t\t\t\t\t\t" + ((p2.desapilar()) ? sOk : sErr));
-        System.out.println("Verifica copia modificada, espera 1,2,3,4,5,6: \t\t\t--> " + p2.toString());
+        System.out.println("Verifica copia modificada, espera [1,2,3,4,5,6]: \t\t--> " + p2.toString());
         p2.vaciar();
         System.out.println("Vacia copia espera pila vacia: \t\t\t\t\t--> " + p2.toString());
     }

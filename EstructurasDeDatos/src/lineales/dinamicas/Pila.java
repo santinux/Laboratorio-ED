@@ -40,6 +40,7 @@ public class Pila
                 if (this.tope != null) {
                         // Actualiza el tope con el enlace al nodo anterior.
                         this.tope = tope.getEnlace();
+                        exito = true;
                 }
                 return (exito);
         }
@@ -83,9 +84,25 @@ public class Pila
          */
         public Pila clonar()
         {
+                Pila pilaAux = new Pila();
                 Pila dolly = new Pila();
-                //TODO
-                
+                Nodo nodoAux = this.tope; // Nodo que viaja por la pila
+                // Apilamos una pila auxiliar recorriendo esta pila
+                while (nodoAux != null) {
+                        // Apilamos obteniendo el elemento del nodo actual
+                        pilaAux.apilar(nodoAux.getElem());
+                        // Apuntamos al nodo de abajo
+                        nodoAux = nodoAux.getEnlace();
+                }
+                // Apilamos ahora la pila dolly recorriendo la pila auxiliar
+                nodoAux = pilaAux.tope; // Ahora va a recorrer a pilaAux
+                while (nodoAux != null) {
+                        // Apilamos obteniendo el elemento del nodo actual
+                        dolly.apilar(nodoAux.getElem());
+                        // Apuntamos al nodo de abajo
+                        nodoAux = nodoAux.getEnlace();
+                }
+                pilaAux.vaciar(); // Limpiamos la pila auxiliar
                 return (dolly);
         }
         
@@ -98,8 +115,15 @@ public class Pila
         public String toString()
         {
                 String cadena = "[";
-                //TODO
-                
+                Nodo nodoAux = this.tope;
+                while (nodoAux != null) {
+                        cadena = cadena + nodoAux.getElem().toString();
+                        // Si hay un elemento debajo, pone ", "                        
+                        if (nodoAux.getEnlace() != null) {
+                                cadena = cadena + ",";
+                        }
+                        nodoAux = nodoAux.getEnlace();
+                }
                 return (cadena + "]");
         }
 }

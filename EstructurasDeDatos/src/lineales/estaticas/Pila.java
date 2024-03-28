@@ -113,7 +113,7 @@ public class Pila
         {
                 String cadena = "[";
                 for (int i = 0; i <= tope; i++) {
-                        cadena = cadena + this.arreglo[i];
+                        cadena = cadena + this.arreglo[i].toString();
                         if (i < tope) {
                                 cadena = cadena + ",";
                         }

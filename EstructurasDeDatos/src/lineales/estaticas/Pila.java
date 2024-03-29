@@ -1,4 +1,5 @@
 package lineales.estaticas;
+
 /**
  * Implementación del TDA Pila Estática
  * @author santino.fuentes
@@ -9,6 +10,10 @@ public class Pila
         private static final int TAMAGNO = 10;
         private Object[] arreglo;
         private int tope;
+        
+        // IMPORTANTE
+        // Pila vacía: tope < 0
+        // Pila llena: tope >= TAMAGNO - 1
         
         /**
          * Crea la pila vacía.
@@ -56,15 +61,15 @@ public class Pila
         
         /**
          * Si la pila no está vacía, retorna el elemento en el tope de ella.
-         * @return Object El valor del elemento en el tope.
+         * @return Object El elemento en el tope, `null` si está vacía.
          */
         public Object obtenerTope()
         {
-                Object elemento = null;
+                Object elementoEnTope = null;
                 if (this.tope >= 0) {
-                        elemento = (this.arreglo[tope]);
+                        elementoEnTope = (this.arreglo[tope]);
                 }
-                return (elemento);
+                return (elementoEnTope);
         }
         
         /**
@@ -82,7 +87,7 @@ public class Pila
         public void vaciar()
         {
                 while (this.tope >= 0) {
-                        this.arreglo[tope] = null;
+                        this.arreglo[this.tope] = null;
                         this.tope--;
                 }
         }
@@ -104,17 +109,18 @@ public class Pila
         }
         
         /**
-         * Devuelve una cadena de caracteres formada por todos los
-         * elementos de la pila.
+         * Devuelve una cadena de caracteres formada por todos los elementos
+         * de la pila.
          * @return String Cadena de caracteres formateada.
          */
         @Override
         public String toString()
         {
                 String cadena = "[";
-                for (int i = 0; i <= tope; i++) {
+                for (int i = 0; i <= this.tope; i++) {
                         cadena = cadena + this.arreglo[i].toString();
-                        if (i < tope) {
+                        // Si el siguiente elemento no es el último, pone ","
+                        if (i < this.tope) {
                                 cadena = cadena + ",";
                         }
                 }

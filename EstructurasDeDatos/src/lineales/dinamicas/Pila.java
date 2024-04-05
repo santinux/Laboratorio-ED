@@ -117,10 +117,10 @@ public class Pila
                 String cadena = "[";
                 Nodo nodoAux = this.tope;
                 while (nodoAux != null) {
-                        cadena = cadena + nodoAux.getElem().toString();
+                        cadena += nodoAux.getElem().toString();
                         // Si hay un elemento debajo, pone ", "                        
                         if (nodoAux.getEnlace() != null) {
-                                cadena = cadena + ",";
+                                cadena += ",";
                         }
                         nodoAux = nodoAux.getEnlace();
                 }

@@ -48,6 +48,9 @@ public class Cola {
                 boolean exito = false;
                 if (this.frente != null) {
                         this.frente = this.frente.getEnlace();
+                        if (this.frente == null) {
+                                this.fin = null;
+                        }
                         exito = true;
                 }
                 return (exito);
@@ -59,7 +62,11 @@ public class Cola {
          */
         public Object obtenerFrente()
         {
-                return (this.frente.getElem());
+                Object elElemento = null;
+                if (this.frente != null) {
+                        elElemento = this.frente.getElem();
+                }
+                return (elElemento);
         }
         
         /**
@@ -68,7 +75,7 @@ public class Cola {
          */
         public boolean esVacia()
         {
-                return (this.frente == null && this.fin == null);
+                return (this.frente == this.fin && this.fin == null);
         }
         
         /**
@@ -89,7 +96,13 @@ public class Cola {
          */
         public Cola clonar()
         {
-            return null;
+                Nodo nodoAux = this.frente;
+                Cola dolly = new Cola();
+                while (nodoAux != null) {
+                        dolly.poner(nodoAux.getElem());
+                        nodoAux = nodoAux.getEnlace();
+                }
+                return (dolly);
         }
         
         /**
@@ -108,6 +121,7 @@ public class Cola {
                         if (nodoAux.getEnlace() != null) {
                                 cadena += ", ";
                         }
+                        nodoAux = nodoAux.getEnlace();
                 }
                 return (cadena += "]");
         }

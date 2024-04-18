@@ -20,11 +20,24 @@ public class Lista {
          * Agrega un elemento en una posición.
          * @param unElemento
          * @param unaPosicion
-         * @return 
+         * @return Si pudo o no insertar en la posición dada.
          */
         public boolean insertar(Object unElemento, int unaPosicion)
         {
-                //TODO
+                boolean exito = true;
+                if (unaPosicion < 1 || unaPosicion > this.longitud() + 1) {
+                        exito = false;
+                } else {
+                        if (unaPosicion == 1) {
+                                this.cabecera = new Nodo(unElemento, this.cabecera);
+                        } else {
+                                Nodo aux = this.cabecera;
+                                int i = 1;
+                                while (i < unaPosicion - 1) {
+                                        aux = aux.getEnlace();
+                                }
+                        }
+                }
         }
         
         public boolean eliminar(int unaPosicion)

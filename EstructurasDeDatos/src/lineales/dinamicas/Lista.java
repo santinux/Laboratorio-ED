@@ -136,5 +136,26 @@ public class Lista {
         public String toString()
         {
                 //TODO
+                String cadena = "";
+                if (this.cabecera != null) {
+                        cadena = toStringRecursivo(this.cabecera, cadena);
+                }
+                return ("[" + cadena + "]");
+        }
+        
+        private String toStringRecursivo(Nodo unNodo, String unaCadena)
+        {
+                if (unNodo == null) {
+                        // CB: Llegó al final de la lista
+                        unaCadena = "";
+                } else {
+                        // PR: Llama con el siguiente nodo
+                        if (unNodo.getEnlace() != null) {
+                                unaCadena = unaCadena + unNodo.getElem().toString() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                        } else {
+                                unaCadena = unaCadena + unNodo.getElem().toString() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                        }
+                }
+                return (unaCadena);
         }
 }

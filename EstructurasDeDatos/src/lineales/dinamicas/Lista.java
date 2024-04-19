@@ -79,7 +79,13 @@ public class Lista {
         
         public Object recuperar(int unaPosicion)
         {
-                //TODO
+                int i = 1;
+                Nodo aux = this.cabecera;
+                while (i < unaPosicion) {
+                        aux = aux.getEnlace();
+                        i++;
+                }
+                return (aux.getElem());
         }
         
         public int localizar(Object unElemento)
@@ -135,7 +141,6 @@ public class Lista {
         @Override
         public String toString()
         {
-                //TODO
                 String cadena = "";
                 if (this.cabecera != null) {
                         cadena = toStringRecursivo(this.cabecera, cadena);
@@ -151,9 +156,10 @@ public class Lista {
                 } else {
                         // PR: Llama con el siguiente nodo
                         if (unNodo.getEnlace() != null) {
-                                unaCadena = unaCadena + unNodo.getElem().toString() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                                // Si no es el último nodo, pone " ,"
+                                unaCadena += unNodo.getElem().toString() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         } else {
-                                unaCadena = unaCadena + unNodo.getElem().toString() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                                unaCadena += unNodo.getElem().toString() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         }
                 }
                 return (unaCadena);

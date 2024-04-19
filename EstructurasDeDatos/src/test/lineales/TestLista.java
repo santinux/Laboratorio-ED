@@ -17,5 +17,10 @@ public class TestLista {
                 }
                 System.out.println("Listado de corredores");
                 System.out.println(corredores.toString());
+                
+                System.out.println("Corredor 1: " + corredores.recuperar(1).toString());
+                System.out.println("Corredor 3: " + corredores.recuperar(3).toString());
+                System.out.println("Corredor 5: " + corredores.recuperar(5).toString());
+                System.out.println("Corredor 10: " + corredores.recuperar(10).toString());
         }
 }

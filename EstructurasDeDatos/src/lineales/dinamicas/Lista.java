@@ -51,11 +51,9 @@ public class Lista {
         
         public boolean eliminar(int unaPosicion)
         {
-                boolean exito = true;
+                boolean exito = false;
                 // Verifica que la posición a eliminar sea válida
-                if (unaPosicion < 1 || unaPosicion > this.longitud()) {
-                        exito = false;
-                } else {
+                if (unaPosicion > 1 && unaPosicion <= this.longitud()) {
                         if (unaPosicion == 1) {
                                 // Se pone como cabecera el siguiente nodo
                                 this.cabecera = this.cabecera.getEnlace();
@@ -73,24 +71,44 @@ public class Lista {
                                 // |a|-->|b|-->|c| ==> |a|-->|c|
                                 aux.setEnlace(aux.getEnlace().getEnlace());
                         }
+                        exito = true;
                 }
                 return (exito);
         }
         
         public Object recuperar(int unaPosicion)
         {
-                int i = 1;
-                Nodo aux = this.cabecera;
-                while (i < unaPosicion) {
-                        aux = aux.getEnlace();
-                        i++;
+                Object unElemento = null;
+                // Verifica que la posición a recuperar sea válida
+                if (unaPosicion > 0 && unaPosicion <= this.longitud()) {
+                        int i = 1;
+                        Nodo aux = this.cabecera;
+                        // Recorre hasta el nodo buscado
+                        while (i < unaPosicion) {
+                                aux = aux.getEnlace();
+                                i++;
+                        }
+                        unElemento = aux.getElem();
                 }
-                return (aux.getElem());
+                return (unElemento);
         }
         
         public int localizar(Object unElemento)
         {
-                //TODO
+                boolean encontrado = false;
+                int unaPosicion = 1;
+                Nodo aux = this.cabecera;
+                while (unaPosicion <= this.longitud() && !encontrado) {
+                        if (aux.getElem().equals(unElemento)) {
+                                encontrado = true;
+                        } else {
+                                aux = aux.getEnlace();
+                                unaPosicion++;
+                        }
+                }
+                if (!encontrado)
+                        unaPosicion = -1;
+                return (unaPosicion);
         }
         
         /**
@@ -135,7 +153,19 @@ public class Lista {
         
         public Lista clonar()
         {
-                //TODO
+                Lista dolly = new Lista();
+                dolly = clonarRecursivo(dolly, this.cabecera, 1);
+                return (dolly);
+        }
+        
+        private Lista clonarRecursivo(Lista unaLista, Nodo unNodo, int unaPosicion)
+        {
+                // PR:
+                if (unNodo != null) {
+                        unaLista.insertar(unNodo.getElem(), unaPosicion);
+                        clonarRecursivo(unaLista, unNodo.getEnlace(), unaPosicion + 1);
+                }
+                return (unaLista);
         }
         
         @Override
@@ -156,10 +186,10 @@ public class Lista {
                 } else {
                         // PR: Llama con el siguiente nodo
                         if (unNodo.getEnlace() != null) {
-                                // Si no es el último nodo, pone " ,"
-                                unaCadena += unNodo.getElem().toString() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                                // Si no es el último nodo, pone ", "
+                                unaCadena += unNodo.getElem() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         } else {
-                                unaCadena += unNodo.getElem().toString() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                                unaCadena += unNodo.getElem() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         }
                 }
                 return (unaCadena);

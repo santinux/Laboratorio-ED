@@ -29,5 +29,22 @@ public class TestLista {
                 
                 Lista copiaCorredores = corredores.clonar();
                 System.out.println("Copia de corredores: " + copiaCorredores.toString());
+                
+                // Parcial 1
+                 Lista letras = new Lista();
+                 letras.insertar("A", 1);
+                 letras.insertar("B", 2);
+                 letras.insertar("C", 3);
+                 letras.insertar("D", 4);
+                 letras.insertar("E", 5);
+                 letras.insertar("F", 6);
+                 letras.insertar("G", 7);
+                 letras.insertar("H", 8);
+                 letras.insertar("I", 9);
+                 letras.insertar("J", 10);
+                 System.out.println("Lista con letras: " + letras.toString());
+                 Lista listaMultiplos = letras.obtenerMultiplos(3);
+                 System.out.println("Lista con múltiplos de la posición 3: "
+                         + listaMultiplos.toString());
         }
 }

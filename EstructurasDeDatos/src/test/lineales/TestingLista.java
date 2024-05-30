@@ -77,7 +77,7 @@ public class TestingLista {
 	        System.out.println("\t--> " + l1.toString());
 	        System.out.println("Recupera pos 5 espera NULL: \t\t\t" + ((l1.recuperar(5) == null) ? sOk : sErr));
 
-	        Lista l2 = l1.clone();
+	        Lista l2 = l1.clonar();
 	        System.out.println("Copia espera [2,9,3]: \t\t\t\t\t--> " + l2.toString());
 
 	        System.out.print("Inserta 10 pos 1 espera [10,2,9,3]: \t\t" + ((l1.insertar(10, 1) == true) ? sOk : sErr));

@@ -49,6 +49,11 @@ public class Lista {
                 return (exito);
         }
         
+        /**
+         * Elimina el elemento de la posición indicada.
+         * @param unaPosicion
+         * @return Si pudo o no eliminar el elemento.
+         */
         public boolean eliminar(int unaPosicion)
         {
                 boolean exito = false;
@@ -76,6 +81,11 @@ public class Lista {
                 return (exito);
         }
         
+        /**
+         * Retorna el elemento de la posición indicada.
+         * @param unaPosicion
+         * @return El elemento
+         */
         public Object recuperar(int unaPosicion)
         {
                 Object unElemento = null;
@@ -93,6 +103,11 @@ public class Lista {
                 return (unElemento);
         }
         
+        /**
+         * Retorna la posición del elemento indicado.
+         * @param unElemento
+         * @return La posición
+         */
         public int localizar(Object unElemento)
         {
                 boolean encontrado = false;
@@ -113,7 +128,7 @@ public class Lista {
         
         /**
          * Cuenta la cantidad de elementos de la lista.
-         * @return int La cantidad de elementos.
+         * @return La cantidad de elementos
          */
         public int longitud()
         {
@@ -122,12 +137,12 @@ public class Lista {
         }
         
         /**
-         * Cuenta la cantidad de elementos de la lista.
-         * - Requerido por `longitud()`.
+         * Cuenta la cantidad de elementos de la lista
+         * - Implementado por <code>longitud</code>.
          * @see longitud()
          * @param unNodo
          * @param unContador
-         * @return int La cantidad de elementos.
+         * @return La cantidad de elementos
          */
         private int longitudRecursivo(Nodo unNodo, int unContador)
         {
@@ -141,16 +156,27 @@ public class Lista {
                 return (unContador);
         }
         
+        /**
+         * Retorna verdadero si la lista está vacía.
+         * @return Si la lista está vacía o no
+         */
         public boolean esVacia()
         {
                 return (this.cabecera == null);
         }
         
+        /**
+         * Elimina todos los elementos de la lista.
+         */
         public void vaciar()
         {
                 this.cabecera = null;
         }
         
+        /**
+         * Retorna una copia exacta de la lista.
+         * @return Un clon de la lista
+         */
         public Lista clonar()
         {
                 Lista dolly = new Lista();
@@ -158,6 +184,14 @@ public class Lista {
                 return (dolly);
         }
         
+        /**
+         * Recorre la lista haciendo una copia de los elementos en otra lista
+         * - Implementado por <code>clonar</code>.
+         * @param unaLista
+         * @param unNodo
+         * @param unaPosicion
+         * @return Un clon de la lista
+         */
         private Lista clonarRecursivo(Lista unaLista, Nodo unNodo, int unaPosicion)
         {
                 // PR:
@@ -168,6 +202,10 @@ public class Lista {
                 return (unaLista);
         }
         
+        /**
+         * Retorna una cadena con todos los elementos de la lista.
+         * @return Una cadena con elementos
+         */
         @Override
         public String toString()
         {
@@ -178,6 +216,13 @@ public class Lista {
                 return ("[" + cadena + "]");
         }
         
+        /**
+         * Recorre la lista y retorna una cadena con todos los elementos
+         * - Implementado por <code>toString</code>.
+         * @param unNodo
+         * @param unaCadena
+         * @return Una cadena con los elementos
+         */
         private String toStringRecursivo(Nodo unNodo, String unaCadena)
         {
                 if (unNodo == null) {

@@ -1,7 +1,8 @@
 package lineales.dinamicas;
 
 /**
- * Implementación del TDA Nodo
+ * Implementación del TDA Lista.
+ * 
  * @author santino.fuentes
  * @version 1.0
  */
@@ -18,6 +19,7 @@ public class Lista {
         
         /**
          * Agrega un elemento en una posición.
+         * 
          * @param unElemento
          * @param unaPosicion
          * @return Si pudo o no insertar en la posición dada.
@@ -51,6 +53,7 @@ public class Lista {
         
         /**
          * Elimina el elemento de la posición indicada.
+         * 
          * @param unaPosicion
          * @return Si pudo o no eliminar el elemento.
          */
@@ -83,6 +86,7 @@ public class Lista {
         
         /**
          * Retorna el elemento de la posición indicada.
+         * 
          * @param unaPosicion
          * @return El elemento
          */
@@ -105,6 +109,7 @@ public class Lista {
         
         /**
          * Retorna la posición del elemento indicado.
+         * 
          * @param unElemento
          * @return La posición
          */
@@ -127,8 +132,10 @@ public class Lista {
         }
         
         /**
-         * Cuenta la cantidad de elementos de la lista.
+         * Retorna la cantidad de elementos de la lista.
+         * 
          * @return La cantidad de elementos
+         * @see #longitudRecursivo(lineales.dinamicas.Nodo, int)
          */
         public int longitud()
         {
@@ -137,12 +144,13 @@ public class Lista {
         }
         
         /**
-         * Cuenta la cantidad de elementos de la lista
-         * - Implementado por <code>longitud</code>.
-         * @see longitud()
+         * Recorre la lista contando la cantidad de elementos
+         * Este método es invocado por {@link #longitud()}.
+         * 
          * @param unNodo
          * @param unContador
          * @return La cantidad de elementos
+         * @see #longitud()
          */
         private int longitudRecursivo(Nodo unNodo, int unContador)
         {
@@ -158,6 +166,7 @@ public class Lista {
         
         /**
          * Retorna verdadero si la lista está vacía.
+         * 
          * @return Si la lista está vacía o no
          */
         public boolean esVacia()
@@ -175,6 +184,7 @@ public class Lista {
         
         /**
          * Retorna una copia exacta de la lista.
+         * 
          * @return Un clon de la lista
          */
         public Lista clonar()
@@ -186,11 +196,13 @@ public class Lista {
         
         /**
          * Recorre la lista haciendo una copia de los elementos en otra lista
-         * - Implementado por <code>clonar</code>.
+         * Este método es invocado por {@link #longitud()}.
+         * 
          * @param unaLista
          * @param unNodo
          * @param unaPosicion
          * @return Un clon de la lista
+         * @see #longitud()
          */
         private Lista clonarRecursivo(Lista unaLista, Nodo unNodo, int unaPosicion)
         {
@@ -204,6 +216,7 @@ public class Lista {
         
         /**
          * Retorna una cadena con todos los elementos de la lista.
+         * 
          * @return Una cadena con elementos
          */
         @Override
@@ -218,7 +231,8 @@ public class Lista {
         
         /**
          * Recorre la lista y retorna una cadena con todos los elementos
-         * - Implementado por <code>toString</code>.
+         * Este método es implementado por {@link #toString()}.
+         * 
          * @param unNodo
          * @param unaCadena
          * @return Una cadena con los elementos
@@ -238,47 +252,5 @@ public class Lista {
                         }
                 }
                 return (unaCadena);
-        }
-        
-        /**
-         * Parcial 1, Ejercicio 1-a.
-         * @return Una lista nueva con todos los elementos de las posiciones
-         * múltiplos de num, en el mismo orden encontrado
-         */
-        public Lista obtenerMultiplos(int num)
-        {
-                Lista multiplos = new Lista();
-                if (this.cabecera != null) {
-                        obtenerMultiplosRecursivo(this.cabecera, multiplos.cabecera, num, 1);
-                }
-                return (multiplos);
-        }
-//        private void obtenerMultiplosRecursivo(Nodo unNodo, Lista losMultiplos, int unNum, int unaPosicion)
-//        {
-//                if (unNodo != null) {
-//                        // Mientras no se llegue al final de la lista
-//                        if (unaPosicion % unNum == 0) {
-//                                // Si la posición es múltiplo del número, agregar
-//                                // su elemento a la nueva lista
-//                                losMultiplos.insertar(unNodo.getElem(), losMultiplos.longitud() + 1);
-//                                obtenerMultiplosRecursivo(unNodo.getEnlace(), losMultiplos, unNum, unaPosicion + 1);
-//                        } else {
-//                                obtenerMultiplosRecursivo(unNodo.getEnlace(), losMultiplos, unNum, unaPosicion + 1);
-//                        }
-//                }
-//        }
-        private void obtenerMultiplosRecursivo(Nodo unNodo, Nodo unNodoMultiplo, int unNum, int unaPosicion)
-        {
-                if (unNodo != null) {
-                        // Mientras no se llegue al final de la lista
-                        if (unaPosicion % unNum == 0) {
-                                // Si la posición es múltiplo del número, agregar
-                                // su elemento a la nueva lista
-                                unNodoMultiplo.setEnlace(new Nodo(unNodo.getElem(), null));
-                                obtenerMultiplosRecursivo(unNodo.getEnlace(), unNodoMultiplo, unNum, unaPosicion + 1);
-                        } else {
-                                obtenerMultiplosRecursivo(unNodo.getEnlace(), unNodoMultiplo, unNum, unaPosicion + 1);
-                        }
-                }
         }
 }

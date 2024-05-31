@@ -1,23 +1,25 @@
 package lineales.dinamicas;
 
 /**
- * Implementación de métodos extra del TDA Lista.
+ * Implementación de métodos extra del TDA Lista
+ * En esta clase se accede a la cabecera de la lista mediante métodos de aceso.
  * 
  * @author santino.fuentes
  */
 public class ListaExtendida extends Lista
 {
-        private Nodo kabecera = this.getCabecera();
         /**
-         * Parcial 1, Ejercicio 1-a.
-         * @return Una lista nueva con todos los elementos de las posiciones
-         * múltiplos de num, en el mismo orden encontrado
+         * Retorna una lista nueva con todos los elementos de las posiciones
+         * múltiplos de num, en el mismo orden encontrado.
+         * 
+         * @param num
+         * @return Una lista nueva
          */
         public Lista obtenerMultiplos(int num)
         {
                 Lista multiplos = new Lista();
-                if (this.kabecera != null) {
-                        obtenerMultiplosRecursivo(this.kabecera, multiplos.kabecera, num, 1);
+                if (this.getCabecera() != null) {
+                        obtenerMultiplosRecursivo(this.getCabecera(), multiplos.getCabecera(), num, 1);
                 }
                 return (multiplos);
         }

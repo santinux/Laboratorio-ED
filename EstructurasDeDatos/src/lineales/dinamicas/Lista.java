@@ -18,6 +18,26 @@ public class Lista {
         }
         
         /**
+         * Retorna el nodo cabecera de la lista.
+         * 
+         * @return El nodo cabecera
+         */
+        public Nodo getCabecera()
+        {
+                return (this.cabecera);
+        }
+        
+        /**
+         * Modifica el nodo cabecera de la lista.
+         * 
+         * @param unNodo
+         */
+        public void setCabecera(Nodo unNodo)
+        {
+                this.cabecera = unNodo;
+        }
+        
+        /**
          * Agrega un elemento en una posición.
          * 
          * @param unElemento

@@ -1,6 +1,6 @@
 package test.jerarquicas;
 
-import jerarquicas.dinamicas.ArbolBin;
+import jerarquicas.dinamicas.ArbolBinario;
 
 /**
  *
@@ -37,8 +37,8 @@ public class TestBinario
                 System.out.println(ANSI_CYAN_BACKGROUND + ROJO + "*                  Test Arbol Binario                        *");
                 System.out.println(ANSI_CYAN_BACKGROUND + ROJO + "**************************************************************" + "\n\n" + RESET);
 
-                ArbolBin a = new ArbolBin();
-                ArbolBin b = new ArbolBin();
+                ArbolBinario a = new ArbolBinario();
+                ArbolBinario b = new ArbolBinario();
 
                 System.out.println(ANSI_YELLOW_BACKGROUND + "--------------------------------------------------------------------------------------------------------"
                         + "------------------------------------------------------------------------------------------" + RESET);

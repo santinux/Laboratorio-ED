@@ -5,11 +5,11 @@ package jerarquicas.dinamicas;
  * @author santino.fuentes
  * @version 1.0
  */
-public class ArbolBin
+public class ArbolBinario
 {
         private NodoArbol raiz;
         
-        public ArbolBin()
+        public ArbolBinario()
         {
                 this.raiz = null;
         }

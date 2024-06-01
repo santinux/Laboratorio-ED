@@ -3,12 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos/src/test/lineales/TestCadenas.java</file>
-            <file>file:/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos/src/lineales/dinamicas/Cola.java</file>
-=======
-            <file>file:/export/home/santino.fuentes/LCC/ED/Laboratorio-ED/EstructurasDeDatos/src/lineales/dinamicas/Lista.java</file>
->>>>>>> 780f9502ae851b639966cc48aeb9555210574c2c
+            <file>file:/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos/src/jerarquicas/dinamicas/ArbolBin.java</file>
         </group>
     </open-files>
 </project-private>

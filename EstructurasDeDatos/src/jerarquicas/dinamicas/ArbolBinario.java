@@ -21,10 +21,11 @@ public class ArbolBinario
         {
                 boolean exito = false;
                 if (this.raiz == null) {
-                        // Si el árbol está vacío, insertar el elemento como raíz
+                        // Si el árbol está vacío, insertar unElemento como raíz
                         this.raiz = new NodoBinario(unElemento, null, null);
                 } else {
-                        // Sino, insertarlo bajo su padre, buscando en preorden
+                        // Sino, intentar insertar unElemento en unaPosicion del
+                        // nodo que posea el elementoPadre, buscando en preorden
                         exito = insertarRecursivo(this.raiz, unElemento, elementoPadre, unaPosicion);
                 }
                 return (exito);
@@ -40,8 +41,7 @@ public class ArbolBinario
                         if (unaPosicion == 'I' && raizSubArbol.getIzquierdo() == null) {
                                 raizSubArbol.setIzquierdo(new NodoBinario(elementoHijo, null, null));
                                 exito = true;
-                        }
-                        if (unaPosicion == 'D' && raizSubArbol.getDerecho() == null) {
+                        } else if (unaPosicion == 'D' && raizSubArbol.getDerecho() == null) {
                                 raizSubArbol.setDerecho(new NodoBinario(elementoHijo, null, null));
                                 exito = true;
                         }
@@ -50,6 +50,9 @@ public class ArbolBinario
                         // el elemento padre, continuar la búsqueda en preorden
                         if (raizSubArbol.getIzquierdo() != null) {
                                 exito = insertarRecursivo(raizSubArbol.getIzquierdo(), elementoHijo, elementoPadre, unaPosicion);
+                        }
+                        if (raizSubArbol.getDerecho() != null) {
+                                exito = insertarRecursivo(raizSubArbol.getDerecho(), elementoHijo, elementoPadre, unaPosicion);
                         }
                 }
                 return (exito);
@@ -62,7 +65,7 @@ public class ArbolBinario
         
         public boolean vaciar()
         {
-                //TODO
+                this.raiz = null;
         }
         
         public Object padre(Object unElemento)

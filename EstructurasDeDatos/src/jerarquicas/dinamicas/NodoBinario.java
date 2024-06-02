@@ -6,11 +6,11 @@ package jerarquicas.dinamicas;
  * @author santino.fuentes
  * @version 1.0
  */
-public class NodoArbol
+public class NodoBinario
 {
         private Object elemento;
-        private NodoArbol izquierdo;
-        private NodoArbol derecho;
+        private NodoBinario izquierdo;
+        private NodoBinario derecho;
         
         /**
          * Crea un nodo de árbol.
@@ -19,7 +19,7 @@ public class NodoArbol
          * @param izq
          * @param der
          */
-        public NodoArbol(Object unElemento, NodoArbol izq, NodoArbol der)
+        public NodoBinario(Object unElemento, NodoBinario izq, NodoBinario der)
         {
                 this.elemento = unElemento;
                 this.izquierdo = izq;
@@ -41,7 +41,7 @@ public class NodoArbol
          * 
          * @return El nodo
          */
-        public NodoArbol getIzquierdo()
+        public NodoBinario getIzquierdo()
         {
                 return (this.izquierdo);
         }
@@ -51,7 +51,7 @@ public class NodoArbol
          * 
          * @return El nodo
          */
-        public NodoArbol getDerecho()
+        public NodoBinario getDerecho()
         {
                 return (this.derecho);
         }
@@ -71,7 +71,7 @@ public class NodoArbol
          * 
          * @param unNodo
          */
-        public void setIzquierdo(NodoArbol unNodo)
+        public void setIzquierdo(NodoBinario unNodo)
         {
                 this.izquierdo = unNodo;
         }
@@ -81,7 +81,7 @@ public class NodoArbol
          * 
          * @param unNodo
          */
-        public void setDerecho(NodoArbol unNodo)
+        public void setDerecho(NodoBinario unNodo)
         {
                 this.derecho = unNodo;
         }

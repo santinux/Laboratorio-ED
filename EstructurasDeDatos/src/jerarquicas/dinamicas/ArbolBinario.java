@@ -1,4 +1,5 @@
 package jerarquicas.dinamicas;
+
 import lineales.dinamicas.Lista;
 
 /**
@@ -9,7 +10,7 @@ import lineales.dinamicas.Lista;
  */
 public class ArbolBinario
 {
-        private NodoArbol raiz;
+        private NodoBinario raiz;
         
         public ArbolBinario()
         {
@@ -21,7 +22,7 @@ public class ArbolBinario
                 boolean exito = false;
                 if (this.raiz == null) {
                         // Si el árbol está vacío, insertar el elemento como raíz
-                        this.raiz = new NodoArbol(unElemento, null, null);
+                        this.raiz = new NodoBinario(unElemento, null, null);
                 } else {
                         // Sino, insertarlo bajo su padre, buscando en preorden
                         exito = insertarRecursivo(this.raiz, unElemento, elementoPadre, unaPosicion);
@@ -29,7 +30,7 @@ public class ArbolBinario
                 return (exito);
         }
         
-        private boolean insertarRecursivo(NodoArbol raizSubArbol, Object elementoHijo, Object elementoPadre, char unaPosicion)
+        private boolean insertarRecursivo(NodoBinario raizSubArbol, Object elementoHijo, Object elementoPadre, char unaPosicion)
         {
                 boolean exito = false;
                 if (raizSubArbol.getElemento().equals(elementoPadre)) {
@@ -37,11 +38,11 @@ public class ArbolBinario
                         // el elemento padre y la posición a insertar está
                         // libre, insertar el elemento como hijo del subárbol
                         if (unaPosicion == 'I' && raizSubArbol.getIzquierdo() == null) {
-                                raizSubArbol.setIzquierdo(new NodoArbol(elementoHijo, null, null));
+                                raizSubArbol.setIzquierdo(new NodoBinario(elementoHijo, null, null));
                                 exito = true;
                         }
                         if (unaPosicion == 'D' && raizSubArbol.getDerecho() == null) {
-                                raizSubArbol.setDerecho(new NodoArbol(elementoHijo, null, null));
+                                raizSubArbol.setDerecho(new NodoBinario(elementoHijo, null, null));
                                 exito = true;
                         }
                 } else {

@@ -2,8 +2,9 @@ package jerarquicas.dinamicas;
 
 /**
  * Implementación del TDA Nodo para Árbol Binario.
+ * 
  * @author santino.fuentes
- * @version
+ * @version 1.0
  */
 public class NodoArbol
 {
@@ -13,9 +14,10 @@ public class NodoArbol
         
         /**
          * Crea un nodo de árbol.
+         * 
          * @param unElemento
          * @param izq
-         * @param der 
+         * @param der
          */
         public NodoArbol(Object unElemento, NodoArbol izq, NodoArbol der)
         {
@@ -26,7 +28,8 @@ public class NodoArbol
         
         /**
          * Devuelve el elemento almacenado en el nodo.
-         * @return el elemento
+         * 
+         * @return El elemento
          */
         public Object getElemento()
         {
@@ -35,7 +38,8 @@ public class NodoArbol
         
         /**
          * Devuelve el nodo izquierdo.
-         * @return el nodo
+         * 
+         * @return El nodo
          */
         public NodoArbol getIzquierdo()
         {
@@ -44,7 +48,8 @@ public class NodoArbol
         
         /**
          * Devuelve el nodo derecho.
-         * @return el nodo
+         * 
+         * @return El nodo
          */
         public NodoArbol getDerecho()
         {
@@ -53,7 +58,8 @@ public class NodoArbol
         
         /**
          * Modifica el elemento almacenado.
-         * @param unElemento 
+         * 
+         * @param unElemento
          */
         public void setElemento(Object unElemento)
         {
@@ -62,7 +68,8 @@ public class NodoArbol
         
         /**
          * Modifica el nodo izquierdo.
-         * @param unNodo 
+         * 
+         * @param unNodo
          */
         public void setIzquierdo(NodoArbol unNodo)
         {
@@ -71,7 +78,8 @@ public class NodoArbol
         
         /**
          * Modifica el nodo derecho.
-         * @param unNodo 
+         * 
+         * @param unNodo
          */
         public void setDerecho(NodoArbol unNodo)
         {

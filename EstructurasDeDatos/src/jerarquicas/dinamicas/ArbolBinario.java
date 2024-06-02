@@ -1,7 +1,9 @@
 package jerarquicas.dinamicas;
+import lineales.dinamicas.Lista;
 
 /**
  * Implementación del TDA Árbol Binario.
+ * 
  * @author santino.fuentes
  * @version 1.0
  */
@@ -51,8 +53,60 @@ public class ArbolBinario
                 }
                 return (exito);
         }
+        
         public boolean esVacio()
         {
                 return (this.raiz == null);
+        }
+        
+        public boolean vaciar()
+        {
+                //TODO
+        }
+        
+        public Object padre(Object unElemento)
+        {
+                //TODO
+        }
+        
+        public int altura()
+        {
+                //TODO
+        }
+        
+        public int nivel(Object unElemento)
+        {
+                //TODO
+        }
+        
+        public ArbolBinario clonar()
+        {
+                //TODO
+        }
+        
+        public Lista listarInorden()
+        {
+                //TODO
+        }
+        
+        public Lista listarPreorden()
+        {
+                //TODO
+        }
+        
+        public Lista listarPostorden()
+        {
+                //TODO
+        }
+        
+        public Lista listarPorNiveles()
+        {
+                //TODO
+        }
+        
+        @Override
+        public String toString()
+        {
+                //TODO
         }
 }

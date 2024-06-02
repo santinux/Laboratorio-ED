@@ -90,14 +90,41 @@ public class ArbolBinario
         
         public Lista listarInorden()
         {
-                //TODO
+                Lista listaElementos = new Lista();
+                listarInOrdenRecursivo(this.raiz, listaElementos);
+                return (listaElementos);
+        }
+
+        private void listarInordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
+        {
+                if (raizSubarbol != null) {
+                        // Agregar el elemento del nodo actual a la lista
+                        unaLista.insertar(raizSubarbol.getElemento(), unaLista.longitud() + 1);
+                        // Recorrer a sus hijos en inorden
+                        listarInOrdenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
+                        listarInOrdenRecursivo(raizSubarbol.getDerecho(), unaLista);
+
         }
         
         public Lista listarPreorden()
         {
-                //TODO
+                Lista listaElementos = new Lista();
+                listarPreOrdenRecursivo(this.raiz, listaElementos);
+                return (listaElementos);
         }
         
+        private void listarPreordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
+        {
+                //FIXME
+                if (raizSubarbol != null) {
+                        // Agregar el elemento del nodo actual a la lista
+                        unaLista.insertar(raizSubArbol.getElemento(), unaLista.longitud() + 1);
+                        // Recorrer a sus hijos en preorden
+                        listarPreordenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
+                        listarPreordenRecursivo(raizSubarbol.getDerecho(), unaLista);
+                }
+        }
+
         public Lista listarPostorden()
         {
                 //TODO

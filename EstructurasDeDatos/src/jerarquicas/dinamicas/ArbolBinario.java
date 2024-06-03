@@ -1,5 +1,6 @@
 package jerarquicas.dinamicas;
 
+import lineales.dinamicas.Cola;
 import lineales.dinamicas.Lista;
 
 /**
@@ -63,7 +64,7 @@ public class ArbolBinario
                 return (this.raiz == null);
         }
         
-        public boolean vaciar()
+        public void vaciar()
         {
                 this.raiz = null;
         }
@@ -88,51 +89,85 @@ public class ArbolBinario
                 //TODO
         }
         
+        public Lista listarPreorden()
+        {
+                Lista listaElementos = new Lista();
+                listarPreordenRecursivo(this.raiz, listaElementos);
+                return (listaElementos);
+        }
+        
+        private void listarPreordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
+        {
+                if (raizSubarbol != null) {
+                        // Agregar el elemento del nodo actual a la lista
+                        unaLista.insertar(raizSubarbol.getElemento(), unaLista.longitud() + 1);
+                        // Recorrer al subárbol izquierdo
+                        listarPreordenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
+                        // Recorrer al subárbol derecho
+                        listarPreordenRecursivo(raizSubarbol.getDerecho(), unaLista);
+                }
+        }
+
         public Lista listarInorden()
         {
                 Lista listaElementos = new Lista();
-                listarInOrdenRecursivo(this.raiz, listaElementos);
+                listarInordenRecursivo(this.raiz, listaElementos);
                 return (listaElementos);
         }
 
         private void listarInordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
         {
                 if (raizSubarbol != null) {
+                        // Recorrer al subárbol izquierdo
+                        listarInordenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
                         // Agregar el elemento del nodo actual a la lista
                         unaLista.insertar(raizSubarbol.getElemento(), unaLista.longitud() + 1);
-                        // Recorrer a sus hijos en inorden
-                        listarInOrdenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
-                        listarInOrdenRecursivo(raizSubarbol.getDerecho(), unaLista);
-
+                        // Recorrer al subárbol derecho
+                        listarInordenRecursivo(raizSubarbol.getDerecho(), unaLista);
+                }
         }
         
-        public Lista listarPreorden()
+        public Lista listarPostorden()
         {
                 Lista listaElementos = new Lista();
-                listarPreOrdenRecursivo(this.raiz, listaElementos);
+                listarPostordenRecursivo(this.raiz, listaElementos);
                 return (listaElementos);
         }
         
-        private void listarPreordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
+        public void listarPostordenRecursivo(NodoBinario raizSubarbol, Lista unaLista)
         {
-                //FIXME
                 if (raizSubarbol != null) {
+                        // Recorrer el subárbol izquierdo
+                        listarPostordenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
+                        // Recorrer el subárbol derecho
+                        listarPostordenRecursivo(raizSubarbol.getDerecho(), unaLista);
                         // Agregar el elemento del nodo actual a la lista
-                        unaLista.insertar(raizSubArbol.getElemento(), unaLista.longitud() + 1);
-                        // Recorrer a sus hijos en preorden
-                        listarPreordenRecursivo(raizSubarbol.getIzquierdo(), unaLista);
-                        listarPreordenRecursivo(raizSubarbol.getDerecho(), unaLista);
+                        unaLista.insertar(raizSubarbol.getElemento(), unaLista.longitud() + 1);
                 }
-        }
-
-        public Lista listarPostorden()
-        {
-                //TODO
         }
         
         public Lista listarPorNiveles()
         {
-                //TODO
+                // Cola para almacenar los nodos
+                Cola colaNodos = new Cola();
+                // Lista para almacenar los elementos de los nodos
+                Lista listaElementos = new Lista();
+                // Iniciar con la raíz del árbol
+                colaNodos.poner(this.raiz);
+                while (!colaNodos.esVacia()) {
+                        // Almacenar individualmente el nodo del frente de la cola
+                        NodoBinario nodoActual = (NodoBinario) colaNodos.obtenerFrente();
+                        // Almacenar en la lista el elemento del nodo
+                        listaElementos.insertar(nodoActual.getElemento(), listaElementos.longitud() + 1);
+                        // Sacar el nodo del frente de la cola
+                        colaNodos.sacar();
+                        // Si el nodo tiene hijos, ponerlos en la cola
+                        if (nodoActual.getIzquierdo() != null)
+                                colaNodos.poner(nodoActual.getIzquierdo());
+                        if (nodoActual.getDerecho() != null)
+                                colaNodos.poner(nodoActual.getDerecho());
+                }
+                return (listaElementos);
         }
         
         @Override

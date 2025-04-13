@@ -4,7 +4,7 @@ package lineales.dinamicas;
  * Implementación del TDA Lista.
  * 
  * @author santino.fuentes
- * @version 1.0
+ * @version 2.0
  */
 public class Lista {
         private Nodo cabecera;
@@ -81,7 +81,7 @@ public class Lista {
         {
                 boolean exito = false;
                 // Verifica que la posición a eliminar sea válida
-                if (unaPosicion > 1 && unaPosicion <= this.longitud()) {
+                if (unaPosicion >= 1 && unaPosicion <= this.longitud()) {
                         if (unaPosicion == 1) {
                                 // Se pone como cabecera el siguiente nodo
                                 this.cabecera = this.cabecera.getEnlace();
@@ -207,7 +207,8 @@ public class Lista {
          * 
          * @return Un clon de la lista
          */
-        public Lista clonar()
+        @Override
+        public Lista clone()
         {
                 Lista dolly = new Lista();
                 dolly = clonarRecursivo(dolly, this.cabecera, 1);
@@ -265,8 +266,8 @@ public class Lista {
                 } else {
                         // PR: Llama con el siguiente nodo
                         if (unNodo.getEnlace() != null) {
-                                // Si no es el último nodo, pone ", "
-                                unaCadena += unNodo.getElem() + ", " + toStringRecursivo(unNodo.getEnlace(), unaCadena);
+                                // Si el elemento no es el último nodo, pone ","
+                                unaCadena += unNodo.getElem() + "," + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         } else {
                                 unaCadena += unNodo.getElem() + toStringRecursivo(unNodo.getEnlace(), unaCadena);
                         }

@@ -3,7 +3,7 @@ package lineales.dinamicas;
 /**
  * Implementación del TDA Cola Dinámica
  * @author santino.fuentes
- * @version 1.0
+ * @version 2.0
  */
 public class Cola {
         private Nodo frente;
@@ -94,7 +94,8 @@ public class Cola {
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
          * @return Cola Un clon de la cola original (como la oveja Dolly).
          */
-        public Cola clonar()
+        @Override
+        public Cola clone()
         {
                 Nodo nodoAux = this.frente;
                 Cola dolly = new Cola();
@@ -107,7 +108,7 @@ public class Cola {
         
         /**
          * Devuelve una cadena de caracteres formada por todos los elementos 
-         * de la cola.
+         * de la cola en formato [1,2,3], siendo '1' el frente.
          * @return String Cadena de caracteres formateada.
          */
         @Override
@@ -117,9 +118,9 @@ public class Cola {
                 Nodo nodoAux = this.frente;
                 while (nodoAux != null) {
                         cadena += nodoAux.getElem().toString();
-                        // Si hay un elemento por detrás, pone " ,"
+                        // Si el elemento no es el último, pone ","
                         if (nodoAux.getEnlace() != null) {
-                                cadena += ", ";
+                                cadena += ",";
                         }
                         nodoAux = nodoAux.getEnlace();
                 }

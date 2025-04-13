@@ -2,7 +2,7 @@ package lineales.dinamicas;
 /**
  * Implementación del TDA Pila Dinámica
  * @author santino.fuentes
- * @version 1.0
+ * @version 2.0
  */
 public class Pila
 {
@@ -82,7 +82,8 @@ public class Pila
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
          * @return Pila Un clon de la pila original (como la oveja Dolly).
          */
-        public Pila clonar()
+        @Override
+        public Pila clone()
         {
                 Pila pilaAux = new Pila();
                 Pila dolly = new Pila();
@@ -108,22 +109,30 @@ public class Pila
         
         /**
          * Devuelve una cadena de caracteres formada por todos los
-         * elementos de la pila.
+         * elementos de la pila en formato [3,2,1], siendo '3' el tope.
          * @return String Cadena de caracteres formateada.
          */
         @Override
         public String toString()
         {
-                String cadena = "[";
+                String cadena = "]";
                 Nodo nodoAux = this.tope;
+                Pila pilaAux = new Pila();
+                
                 while (nodoAux != null) {
-                        cadena += nodoAux.getElem().toString();
-                        // Si hay un elemento debajo, pone ", "                        
+                        pilaAux.apilar(nodoAux.getElem());
+                        nodoAux = nodoAux.getEnlace();
+                }
+                
+                nodoAux = pilaAux.tope;
+                while (nodoAux != null) {
+                        cadena = nodoAux.getElem().toString() + cadena;
+                        // Si el elemento no es el último, pone ","                        
                         if (nodoAux.getEnlace() != null) {
-                                cadena += ",";
+                                cadena = "," + cadena;
                         }
                         nodoAux = nodoAux.getEnlace();
                 }
-                return (cadena + "]");
+                return ("[" + cadena);
         }
 }

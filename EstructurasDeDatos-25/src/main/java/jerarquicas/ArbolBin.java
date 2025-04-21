@@ -154,6 +154,40 @@ public class ArbolBin
         {
                 return (obtenerNodoPadre(raiz, unElemento).getElem());
         }
-        
 
+	/**
+	 * Recorre el árbol en preorden (raíz, hijo izquierdo, hijo derecho)
+	 *
+	 * @return Una Lista con los elementos del árbol en preorden
+	 */
+	private Lista preorden()
+	{
+		;;
+	}
+
+	/**
+	 * Recorre el árbol en preorden (hijo izquierdo, raíz, hijo derecho)
+	 *
+	 * @return Una Lista con los elementos del árbol en preorden
+	 */
+	private Lista inorden()
+	{
+		;;
+	}
+
+	/**
+	 * Recorre el árbol en posorden (hijo izquierdo, hijo derecho, raíz)
+	 *
+	 * @return Una Lista con los elementos del árbol en preorden
+	 */
+	private Lista posorden()
+	{
+		;;
+	}
+
+	@Override
+	public String toString()
+	{
+		;;
+	}
 }

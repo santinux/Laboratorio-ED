@@ -1,19 +1,22 @@
 package jerarquicas;
 
+import lineales.dinamicas.Cola;
+import lineales.dinamicas.Lista;
+
 /**
  * Implementación del TDA Árbol Binario
  * 
  * @author santinux
  * @version 1.0
  */
-public class ArbolBin
+public class ArbolBinario
 {
-        private NodoArbol raiz;
+        private NodoBinario raiz;
         
         /**
          * Crea un árbol binario vacío
          */
-        public ArbolBin()
+        public ArbolBinario()
         {
                 this.raiz = null;
         }
@@ -54,21 +57,21 @@ public class ArbolBin
                 
                 if (this.raiz == null) {
                         // Si el árbol está vacío, pone el elemento en la raíz
-                        this.raiz = new NodoArbol(unElemento, null, null);
+                        this.raiz = new NodoBinario(unElemento, null, null);
                         exito = true;
                 } else {
                         // Si el árbol no está vacío, busca el primer nodo que
                         // contenga al elemento padre
-                        NodoArbol nodoPadre = obtenerNodo(this.raiz, unElementoPadre);
+                        NodoBinario nodoPadre = obtenerNodo(this.raiz, unElementoPadre);
                         
                         if (nodoPadre != null) {
                                 // Si el nodo existe, y la posición a insertar está libre,
                                 // crea un nuevo nodo con el elemento y lo inserta
                                 if (unaPosicion == 'I' && nodoPadre.getIzquierdo() == null) {
-                                        nodoPadre.setIzquierdo(new NodoArbol(unElemento, null, null));
+                                        nodoPadre.setIzquierdo(new NodoBinario(unElemento, null, null));
                                         exito = true;
                                 } else if (unaPosicion == 'D' && nodoPadre.getDerecho() == null) {
-                                        nodoPadre.setDerecho(new NodoArbol(unElemento, null, null));
+                                        nodoPadre.setDerecho(new NodoBinario(unElemento, null, null));
                                         exito = true;
                                 }
                         }
@@ -98,9 +101,9 @@ public class ArbolBin
          * @param unElementoBuscado
          * @return El nodo que contiene el elemento buscado
          */
-        private NodoArbol obtenerNodo(NodoArbol unNodo, Object unElementoBuscado)
+        private NodoBinario obtenerNodo(NodoBinario unNodo, Object unElementoBuscado)
         {
-                NodoArbol nodoEncontrado = null;
+                NodoBinario nodoEncontrado = null;
                 if (unNodo != null) {
                         if (unNodo.getElem().equals(unElementoBuscado)) {
                                 // Si el elemento del nodo coincide con el buscado
@@ -124,9 +127,9 @@ public class ArbolBin
          * @param unElementoBuscado
          * @return El nodo padre del nodo que contiene a un elemento
          */
-        private NodoArbol obtenerNodoPadre(NodoArbol unNodo, Object unElementoBuscado)
+        private NodoBinario obtenerNodoPadre(NodoBinario unNodo, Object unElementoBuscado)
         {
-                NodoArbol nodoEncontrado = null;
+                NodoBinario nodoEncontrado = null;
                 if (unNodo != null) {
                         if (unNodo.getIzquierdo().getElem().equals(unElementoBuscado)
                                 || unNodo.getDerecho().getElem().equals(unElementoBuscado)) {
@@ -154,40 +157,126 @@ public class ArbolBin
         {
                 return (obtenerNodoPadre(raiz, unElemento).getElem());
         }
-
-	/**
-	 * Recorre el árbol en preorden (raíz, hijo izquierdo, hijo derecho)
-	 *
-	 * @return Una Lista con los elementos del árbol en preorden
-	 */
-	private Lista preorden()
+        
+        /**
+         * Genera una lista a partir de un recorrido en preorden del árbol
+         * 
+         * @return Una Lista con los elementos del árbol en preorden 
+         */
+        public Lista listarPreorden()
+        {
+                Lista listado = new Lista();
+                this.preorden(this.raiz, listado);
+                return listado;
+        }
+        
+        /**
+         * Recorre el árbol en preorden (raíz, hijo izquierdo, hijo derecho)
+         * 
+         * @param unNodo
+         * @param unaLista 
+         */
+	private void preorden(NodoBinario unNodo, Lista unaLista)
 	{
-		;;
+                if (unNodo != null) {
+                        // Agrega el elemento del nodo actual a la lista
+                        unaLista.insertar(unNodo.getElem(), unaLista.longitud() + 1);
+                        // Recorre el hijo izquierdo
+                        preorden(unNodo.getIzquierdo(), unaLista);
+                        // Recorre el hijo izquierdo
+                        preorden(unNodo.getDerecho(), unaLista);
+                }
 	}
 
 	/**
-	 * Recorre el árbol en preorden (hijo izquierdo, raíz, hijo derecho)
-	 *
-	 * @return Una Lista con los elementos del árbol en preorden
+	 * Genera una lista a partir de un recorrido en inorden del árbol
+         * 
+	 * @return Una Lista con los elementos del árbol en inorden
 	 */
-	private Lista inorden()
+	public Lista listarInorden()
 	{
-		;;
+		Lista listado = new Lista();
+                this.inorden(this.raiz, listado);
+                return listado;
 	}
-
-	/**
-	 * Recorre el árbol en posorden (hijo izquierdo, hijo derecho, raíz)
-	 *
-	 * @return Una Lista con los elementos del árbol en preorden
-	 */
-	private Lista posorden()
+        
+        /**
+         * Recorre el árbol en inorden (hijo izquierdo, raíz, hijo derecho)
+         * 
+         * @param unNodo
+         * @param unaLista 
+         */
+        private void inorden(NodoBinario unNodo, Lista unaLista)
+        {
+                if (unNodo != null) {
+                        // Recorre el hijo izquierdo
+                        inorden(unNodo.getIzquierdo(), unaLista);
+                        // Agrega el elemento del nodo actual a la lista
+                        unaLista.insertar(unNodo.getElem(), unaLista.longitud() + 1);
+                        // Recorre el hijo derecho
+                        inorden(unNodo.getDerecho(), unaLista);
+                }
+        }
+        
+        /**
+         * Genera una lista a partir de un recorrido en posorden del árbol
+         * 
+         * @return Una Lista con los elementos del árbol en inorden
+         */
+        public Lista listarPosorden()
+        {
+                Lista listado = new Lista();
+                this.posorden(this.raiz, listado);
+                return listado;
+        }
+        
+        /**
+         * Recorre el árbol en posorden (hijo izquierdo, hijo derecho, raíz)
+         * 
+         * @param unNodo
+         * @param unaLista 
+         */
+	private void posorden(NodoBinario unNodo, Lista unaLista)
 	{
-		;;
+                if (unNodo != null) {
+                        // Recorre el hijo izquierdo
+                        posorden(unNodo.getIzquierdo(), unaLista);
+                        // Recorre el hijo derecho
+                        posorden(unNodo.getDerecho(), unaLista);
+                        // Agrega el elemento del nodo actual a la lista
+                        unaLista.insertar(unNodo.getElem(), unaLista.longitud() + 1);
+                }
 	}
-
+        
+        /**
+         * Genera una lista a partir del recorrido por nivel del árbol
+         * 
+         * @return Una Lista con los elementos del árbol por nivel
+         */
+        public Lista listarPorNivel()
+        {
+                Lista listado = new Lista();
+                Cola colaNodos = new Cola();
+                colaNodos.poner(this.raiz);
+                while (!colaNodos.esVacia()) {
+                        // Almacena individualmente el nodo del frente de la cola
+                        NodoBinario nodoActual = (NodoBinario) colaNodos.obtenerFrente();
+                        // Almacena en la lista el elemento del nodo
+                        listado.insertar(nodoActual.getElem(), listado.longitud() + 1);
+                        // Sacar el nodo del frente de la cola
+                        colaNodos.sacar();
+                        // Si el nodo actual tiene hijos, ponerlos en la cola
+                        if (nodoActual.getIzquierdo() != null)
+                                colaNodos.poner(nodoActual.getIzquierdo());
+                        if (nodoActual.getDerecho() != null)
+                                colaNodos.poner(nodoActual.getDerecho());
+                }
+                return listado;
+        }
+        
 	@Override
 	public String toString()
 	{
-		;;
+		return null;
 	}
 }

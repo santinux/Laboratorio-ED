@@ -6,13 +6,13 @@ package jerarquicas;
  * @author santinux
  * @version 1.0
  */
-public class NodoArbol
+public class NodoBinario
 {
         private Object elemento;
-        private NodoArbol hijoIzquierdo;
-        private NodoArbol hijoDerecho;
+        private NodoBinario hijoIzquierdo;
+        private NodoBinario hijoDerecho;
         
-        public NodoArbol(Object unElemento, NodoArbol unHijoIzqierdo, NodoArbol unHijoDerecho)
+        public NodoBinario(Object unElemento, NodoBinario unHijoIzqierdo, NodoBinario unHijoDerecho)
         {
                 this.elemento = unElemento;
                 this.hijoIzquierdo = unHijoIzqierdo;
@@ -24,12 +24,12 @@ public class NodoArbol
                 return this.elemento;
         }
         
-        public NodoArbol getIzquierdo()
+        public NodoBinario getIzquierdo()
         {
                 return this.hijoIzquierdo;
         }
         
-        public NodoArbol getDerecho()
+        public NodoBinario getDerecho()
         {
                 return this.hijoDerecho;
         }
@@ -39,12 +39,12 @@ public class NodoArbol
                 this.elemento = unElemento;
         }
         
-        public void setIzquierdo(NodoArbol unHijoIzquierdo)
+        public void setIzquierdo(NodoBinario unHijoIzquierdo)
         {
                 this.hijoIzquierdo = unHijoIzquierdo;
         }
         
-        public void setDerecho(NodoArbol unHijoDerecho)
+        public void setDerecho(NodoBinario unHijoDerecho)
         {
                 this.hijoDerecho = unHijoDerecho;
         }

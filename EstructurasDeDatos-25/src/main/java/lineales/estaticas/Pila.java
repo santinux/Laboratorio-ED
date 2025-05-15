@@ -1,8 +1,12 @@
 package lineales.estaticas;
 
 /**
- * Implementación del TDA Pila Estática
- * @author santino.fuentes
+ * Implementación del TDA Pila Estática.
+ * Consideraciones ligadas a la implementación estática:
+ *  - Pila vacía: tope < 0
+ *  - Pila llena: tope >= TAMAGNO - 1
+ * 
+ * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 2.0
  */
 public class Pila
@@ -11,12 +15,8 @@ public class Pila
         private Object[] arreglo;
         private int tope;
         
-        // IMPORTANTE
-        // Pila vacía: tope < 0
-        // Pila llena: tope >= TAMAGNO - 1
-        
         /**
-         * Crea la pila vacía.
+         * Crea una nueva instancia de pila vacía.
          */
         public Pila()
         {
@@ -25,34 +25,36 @@ public class Pila
         }
         
         /**
-         * Si la pila no está llena, coloca un nuevo elemento en ella.
-         * @param nuevoElemento Nuevo elemento a colocar.
-         * @return boolean Si tuvo o no éxito colocando el elemento.
+         * Coloca un nuevo elemento en el tope de la pila, si no está llena.
+         * 
+         * @param unElemento El elemento que se desea colocar en la pila.
+         * @return Si el apilado fué exitoso, en pila llena retorna false.
          */
-        public boolean apilar(Object nuevoElemento)
+        public boolean apilar(Object unElemento)
         {
                 boolean exito = false;
                 if (this.tope < TAMAGNO - 1) {
-                        // Incrementa el tope de la pila.
+                        // Incrementa el tope de la pila
                         this.tope++;
-                        // Pone el elemento en el nuevo tope de  la pila.
-                        this.arreglo[tope] = nuevoElemento;
+                        // Pone el elemento en el nuevo tope de  la pila
+                        this.arreglo[tope] = unElemento;
                         exito = true;
                 }
                 return (exito);
         }
         
         /**
-         * Si la pila no está vacía, quita el último elemento en ella.
-         * @return boolean Si tuvo o no éxito quitando el último elemento.
+         * Quita el elemento en el tope de la pila, si no está vacía.
+         * 
+         * @return Si el desapilado fué exitoso, en pila vacía retorna false.
          */
         public boolean desapilar()
         {
                 boolean exito = false;
                 if (this.tope >= 0) {
-                        // Pone `null` el último elemento de la pila.
+                        // Pone `null` el último elemento de la pila
                         this.arreglo[tope] = null;
-                        // Decrementa el tope de la pila.
+                        // Decrementa el tope de la pila
                         this.tope--;
                         exito = true;
                 }
@@ -60,8 +62,9 @@ public class Pila
         }
         
         /**
-         * Si la pila no está vacía, retorna el elemento en el tope de ella.
-         * @return Object El elemento en el tope, `null` si está vacía.
+         * Retorna el elemento en el tope de la pila, si no está vacía.
+         * 
+         * @return El elemento en el tope, null si está vacía.
          */
         public Object obtenerTope()
         {
@@ -73,8 +76,9 @@ public class Pila
         }
         
         /**
-         * Devuelve verdadero si la pila no tiene elementos.
-         * @return boolean Si tiene o no elementos.
+         * Verifica si la pila no tiene elementos.
+         * 
+         * @return Si no tiene elementos, retorna true.
          */
         public boolean esVacia()
         {
@@ -82,7 +86,7 @@ public class Pila
         }
         
         /**
-         * Saca todos los elementos de la pila.
+         * Quita todos los elementos de la pila.
          */
         public void vaciar()
         {
@@ -95,14 +99,14 @@ public class Pila
         /**
          * Devuelve una copia exacta de los datos en la estructura original, y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
-         * @return Pila Un clon de la pila original (como la oveja Dolly).
+         * 
+         * @return Un clon de la pila original.
          */
         @Override
         public Pila clone()
         {
                 Pila dolly = new Pila();
                 for (int i = 0; i <= this.tope; i++) {
-                        //dolly.apilar(this.arreglo[i]); // Menos eficiente.
                         dolly.arreglo[i] = this.arreglo[i];
                 }
                 dolly.tope = this.tope;
@@ -110,9 +114,10 @@ public class Pila
         }
         
         /**
-         * Devuelve una cadena de caracteres formada por todos los elementos
+         * Genera una cadena de caracteres formada por todos los elementos
          * de la pila en formato [3,2,1], siendo '3' el tope.
-         * @return String Cadena de caracteres formateada.
+         * 
+         * @return Cadena com los elementos de la pila.
          */
         @Override
         public String toString()

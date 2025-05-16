@@ -1,7 +1,9 @@
 package lineales.dinamicas;
+
 /**
- * Implementación del TDA Pila Dinámica
- * @author santino.fuentes
+ * Implementación del TDA Pila Dinámica.
+ * 
+ * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 2.0
  */
 public class Pila

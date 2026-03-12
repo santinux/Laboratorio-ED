@@ -92,6 +92,7 @@ public class Pila
         {
                 while (this.tope >= 0) {
                         this.arreglo[this.tope] = null;
+                        // Actualiza el tope con el elemento anterior.
                         this.tope--;
                 }
         }
@@ -100,7 +101,7 @@ public class Pila
          * Devuelve una copia exacta de los datos en la estructura original, y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
          * 
-         * @return Un clon de la pila original.
+         * @return Un clon de la pila original (como la oveja Dolly).
          */
         @Override
         public Pila clone()
@@ -117,7 +118,7 @@ public class Pila
          * Genera una cadena de caracteres formada por todos los elementos
          * de la pila en formato [3,2,1], siendo '3' el tope.
          * 
-         * @return Cadena com los elementos de la pila.
+         * @return Cadena con los elementos de la pila.
          */
         @Override
         public String toString()

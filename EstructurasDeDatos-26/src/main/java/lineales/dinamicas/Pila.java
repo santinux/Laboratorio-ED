@@ -11,21 +11,23 @@ public class Pila
         private Nodo tope; // Elemento en el tope de la pila.
         
         /**
-         * Crea la pila vacía.
+         * Crea una nueva instancia de pila vacía.
          */
-        public Pila() {
+        public Pila()
+        {
                 this.tope = null;
         }
         
         /**
-         * Si la pila no está llena, coloca un nuevo elemento en ella.
-         * @param nuevoElem Nuevo elemento a colocar.
-         * @return boolean Si tuvo o no éxito colocando el elemento.
+         * Coloca un nuevo elemento en el tope de la pila, si no está llena.
+         * 
+         * @param unElemento El elemento que se desea colocar en la pila.
+         * @return Si el apilado fué exitoso, en pila llena retorna false.
          */
-        public boolean apilar(Object nuevoElem)
+        public boolean apilar(Object unElemento)
         {
                 // Crea un nuevo nodo y lo enlaza al tope actual (this.tope).
-                Nodo topeNuevo = new Nodo(nuevoElem, this.tope);
+                Nodo topeNuevo = new Nodo(unElemento, this.tope);
                 // Actualiza el tope para que apunte al nuevo nodo.
                 this.tope = topeNuevo;
                 // Nunca es imposible apilar porque es dinámica.
@@ -33,8 +35,9 @@ public class Pila
         }
         
         /**
-         * Si la pila no está vacía, quita el último elemento en ella.
-         * @return boolean Si tuvo o no éxito quitando el último elemento.
+         * Quita el elemento en el tope de la pila, si no está vacía.
+         * 
+         * @return Si el desapilado fué exitoso, en pila vacía retorna false.
          */
         public boolean desapilar()
         {
@@ -48,20 +51,23 @@ public class Pila
         }
         
         /**
-         * Si la pila no está vacía, retorna el elemento en el tope de ella.
-         * @return Object El valor del elemento en el tope.
+         * Retorna el elemento en el tope de la pila, si no está vacía.
+         * 
+         * @return El elemento en el tope, null si está vacía.
          */
-        public Object obtenerTope() {
-                Object elemento = null;
+        public Object obtenerTope()
+        {
+                Object elementoEnTope = null;
                 if (this.tope != null) {
-                        elemento = tope.getElem();
+                        elementoEnTope = tope.getElem();
                 }
-                return (elemento);
+                return (elementoEnTope);
         }
         
         /**
-         * Devuelve verdadero si la pila no tiene elementos.
-         * @return boolean Si tiene o no elementos.
+         * Verifica si la pila no tiene elementos.
+         * 
+         * @return Si no tiene elementos, retorna true.
          */
         public boolean esVacia()
         {
@@ -69,7 +75,7 @@ public class Pila
         }
         
         /**
-         * Saca todos los elementos de la pila.
+         * Quita todos los elementos de la pila.
          */
         public void vaciar()
         {
@@ -82,7 +88,8 @@ public class Pila
         /**
          * Devuelve una copia exacta de los datos en la estructura original, y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
-         * @return Pila Un clon de la pila original (como la oveja Dolly).
+         * 
+         * @return Un clon de la pila original (como la oveja Dolly).
          */
         @Override
         public Pila clone()
@@ -110,9 +117,10 @@ public class Pila
         }
         
         /**
-         * Devuelve una cadena de caracteres formada por todos los
-         * elementos de la pila en formato [3,2,1], siendo '3' el tope.
-         * @return String Cadena de caracteres formateada.
+         * Genera una cadena de caracteres formada por todos los elementos
+         * de la pila en formato [3,2,1], siendo '3' el tope.
+         * 
+         * @return Cadena con los elementos de la pila.
          */
         @Override
         public String toString()

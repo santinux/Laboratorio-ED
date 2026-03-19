@@ -12,7 +12,7 @@ public class ArbolGenerico
 {
 
         private NodoGenerico raiz;
-
+        /*
         public boolean insertar(Object unElementoIzquierdo, Object unElementoDerecho)
         {
                 //TODO
@@ -82,4 +82,5 @@ public class ArbolGenerico
         {
                 //TODO
         }
+        */
 }

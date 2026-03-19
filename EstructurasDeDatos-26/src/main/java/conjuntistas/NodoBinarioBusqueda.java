@@ -14,7 +14,7 @@ public class NodoBinarioBusqueda
                 this.hijoIzquierdo = unHijoIzquierdo;
                 this.hijoDerecho = unHijoDerecho;
         }
-
+        /*
         public NodoBinarioBusqueda(Object unElemento)
         {
                 this.elemento = unElemento;
@@ -49,4 +49,5 @@ public class NodoBinarioBusqueda
         {
                 return this.hijoDerecho;
         }
+        */
 }

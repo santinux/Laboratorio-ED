@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"jerarquicas"},{"l":"lineales.dinamicas"},{"l":"lineales.estaticas"}];updateSearchResults();

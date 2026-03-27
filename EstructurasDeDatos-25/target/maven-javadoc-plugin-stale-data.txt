@@ -1,0 +1,49 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'1.8'
+-sourcepath
+'/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'EstructurasDeDatos-25 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' '/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'EstructurasDeDatos-25 1.0-SNAPSHOT API'
+lineales.dinamicas
+lineales.estaticas
+jerarquicas
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/src/main/java = 1744474427638
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/element-list = 1745983211172
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/allclasses-index.html = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/search.js = 1745983211228
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/allpackages-index.html = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/type-search-index.js = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/package-search-index.js = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/overview-summary.html = 1745983211222
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/stylesheet.css = 1745983211225
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/module-search-index.js = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/index-all.html = 1745983211222
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/overview-tree.html = 1745983211202
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/help-doc.html = 1745983211225
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/jquery-ui.overrides.css = 1745983211228
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/script.js = 1745983211225
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/member-search-index.js = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/tag-search-index.js = 1745983211212
+/data/UNCo/FaI/LCC/11-ED/Laboratorio-ED/EstructurasDeDatos-25/target/reports/apidocs/index.html = 1745983211202

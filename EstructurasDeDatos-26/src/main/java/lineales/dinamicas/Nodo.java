@@ -2,7 +2,8 @@ package lineales.dinamicas;
 
 /**
  * Implementación del TDA Nodo
- * @author santinux
+ *
+ * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 3.0
  */
 public class Nodo
@@ -11,7 +12,8 @@ public class Nodo
         private Nodo enlace;
 
         /**
-         * Crea y devuelve un nodo.
+         * Crea un nodo a partir de los parámetros.
+         *
          * @param unElemento
          * @param unEnlace
          */
@@ -22,6 +24,7 @@ public class Nodo
 
         /**
          * Modifica el elemento del nodo.
+         *
          * @param unElemento
          */
         public void setElemento(Object unElemento) {
@@ -30,6 +33,7 @@ public class Nodo
 
         /**
          * Modifica el enlace del nodo.
+         *
          * @param unEnlace
          */
         public void setEnlace(Nodo unEnlace) {
@@ -38,6 +42,7 @@ public class Nodo
 
         /**
          * Devuelve el elemento del nodo.
+         *
          * @return Object
          */
         public Object getElemento() {
@@ -46,6 +51,7 @@ public class Nodo
 
         /**
          * Devuelve el nodo enlace del nodo.
+         *
          * @return Nodo
          */
         public Nodo getEnlace() {

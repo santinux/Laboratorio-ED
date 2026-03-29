@@ -1,6 +1,7 @@
 package lineales;
 
-import lineales.estaticas.Pila;
+//import lineales.estaticas.Pila;
+import lineales.dinamicas.Pila;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
@@ -76,16 +77,16 @@ public class PilaTest
                 public void testApilarPrimerElemento()
                 {
                         Pila p = new Pila();
-                        boolean ap = p.apilar(1);
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[1\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, ap);
-                        assertEquals(false, ev);
-                        assertEquals(1, t);
-                        assertEquals(true, findSubstring);
+                        boolean exitoApilar = p.apilar(1);
+                        boolean exitoEsVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[1\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(exitoApilar);
+                        assertFalse(exitoEsVacia);
+                        assertEquals(1, tope);
+                        assertTrue(subcadenaEncontrada);
                 }
                 
                 @Test

@@ -6,8 +6,12 @@ package lineales.dinamicas;
  * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 3.0
  */
-public class Pila
+public class Pila implements Cloneable
 {
+        /**
+         * Consideraciones ligadas a la implementación dinámica:
+         * - Pila vacía: tope == null
+         */
         private Nodo tope;
 
         /**
@@ -19,9 +23,9 @@ public class Pila
         }
 
         /**
-         * Agrega un nuevo elemento al tope de la pila.
+         * Coloca un nuevo elemento en el tope de la pila.
          *
-         * @param unElemento el objeto que se desea agregar a la pila.
+         * @param unElemento El elemento que se desea agregar a la pila.
          * @return true si el elemento se agregó correctamente.
          */
         public boolean apilar(Object unElemento) {
@@ -47,7 +51,7 @@ public class Pila
         /**
          * Retorna el elemento en el tope de la pila.
          *
-         * @return El objeto ubicado en el tope de la pila, null si la pila está vacía .
+         * @return El elemento ubicado en el tope, null si está vacía.
          */
         public Object obtenerTope() {
                 Object elementoEnTope = null;
@@ -57,7 +61,7 @@ public class Pila
         }
 
         /**
-         * Verifica si la pila está vacía, si no tiene elementos.
+         * Verifica si la pila está vacía, sin elementos.
          *
          * @return true si la pila no contiene elementos, false en caso contrario.
          */
@@ -67,12 +71,9 @@ public class Pila
 
         /**
          * Vacía completamente la pila, estableciendo su tope en null.
-         *
-         * @return true si la operación de vaciado se realizó correctamente.
          */
-        public boolean vaciar() {
+        public void vaciar() {
                 this.tope = null;
-                return (true);
         }
 
         /**
@@ -85,25 +86,25 @@ public class Pila
         public Pila clone() {
                 Pila dolly = new Pila();
                 if (this.tope != null) {
-                        cloneAux(this.tope, dolly);
+                        Pila dollyInvertida = new Pila();
+                        // El primer llamado retorna una pila invertida
+                        cloneAux(this.tope, dollyInvertida);
+                        // El segundo llamado retorna la pila anterior invertida
+                        cloneAux(dollyInvertida.tope, dolly);
                 }
                 return (dolly);
         }
 
         /**
-         * Helper del método clone.
+         * Helper de clone().
          *
-         * @param unNodo
-         * @param unaPila
+         * @param unNodo Nodo que recorrerá la estructura.
+         * @param unaPila Pila en la que se copiarán los elementos.
          */
         private void cloneAux(Nodo unNodo, Pila unaPila) {
-                Pila dolly = unaPila;
-                Pila pilaInvertida = new Pila();
                 if (unNodo != null) {
-                        pilaInvertida.apilar(unNodo.getElemento());
-                        cloneAux(unNodo.getEnlace(), pilaInvertida);
-                        dolly.apilar(pilaInvertida.obtenerTope());
-                        cloneAux(unNodo.getEnlace(), dolly);
+                        unaPila.apilar(unNodo.getElemento());
+                        cloneAux(unNodo.getEnlace(), unaPila);
                 }
         }
 
@@ -115,24 +116,23 @@ public class Pila
          */
         @Override
         public String toString() {
-                String pilaString = "[";
-                if (this.tope != null) {
+                StringBuilder pilaString = new StringBuilder("[");
+                if (this.tope != null)
                         toStringAux(this.tope, pilaString);
-                }
-                return (pilaString + "]");
+                return (pilaString.append("]").toString());
         }
 
         /**
-         * Helper del método toString.
+         * Helper de toString().
          *
-         * @param unNodo
-         * @param unString
+         * @param unNodo Nodo que recorrerá la estructura.
+         * @param unString Cadena en la que se escribirán los elementos encontrados.
          */
-        private void toStringAux(Nodo unNodo, String unString) {
+        private void toStringAux(Nodo unNodo, StringBuilder unString) {
                 if (unNodo != null) {
-                        unString = unString + unNodo.getElemento().toString();
+                        unString.append(unNodo.getElemento().toString());
                         if (unNodo.getEnlace() != null)
-                                unString = unString + ",";
+                                unString.append(",");
                         toStringAux(unNodo.getEnlace(), unString);
                 }
         }

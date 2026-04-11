@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * El texto de salida del toString() puede contener cualquier otro texto antes
  * o después de la subcadena anterior.
  * 
- * @author Cátedra EDAT-FAI-UNCOMA Ultima modificación: 17/03/2025
+ * @author Cátedra EDAT-FAI-UNCOMA
  * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
- * @version 2.0
+ * @version 3.0
  */
 
 public class PilaTest
@@ -45,10 +45,10 @@ public class PilaTest
                 return p;
         }
         
-        private static boolean esSubcadena(String s, String rx)
+        private static boolean esSubcadena(String unaCadena, String unaExpresion)
         {
-                Pattern pattern = Pattern.compile(rx);
-                Matcher matcher = pattern.matcher(s);
+                Pattern pattern = Pattern.compile(unaExpresion);
+                Matcher matcher = pattern.matcher(unaCadena);
                 boolean encontrada = false;
                 while (matcher.find()) {
                         encontrada = true;
@@ -63,14 +63,14 @@ public class PilaTest
                 public void testCrearPilaVacia()
                 {
                         Pila p = new Pila();
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, ev);
-                        assertEquals(null, t);
-                        assertEquals(true, findSubstring);
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(pilaVacia);
+                        assertNull(tope);
+                        assertTrue(subcadenaEncontrada);
                 }
                 
                 @Test
@@ -78,13 +78,13 @@ public class PilaTest
                 {
                         Pila p = new Pila();
                         boolean exitoApilar = p.apilar(1);
-                        boolean exitoEsVacia = p.esVacia();
+                        boolean pilaVacia = p.esVacia();
                         Object tope = p.obtenerTope();
                         String pilaString = p.toString();
                         String expresion = "\\[1\\]";
                         boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
                         assertTrue(exitoApilar);
-                        assertFalse(exitoEsVacia);
+                        assertFalse(pilaVacia);
                         assertEquals(1, tope);
                         assertTrue(subcadenaEncontrada);
                 }
@@ -93,40 +93,40 @@ public class PilaTest
                 public void testDesapilarPilaVacia()
                 {
                         Pila p = new Pila();
-                        boolean des = p.desapilar();
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(false, des);
-                        assertEquals(true, ev);
-                        assertEquals(null, t);
-                        assertEquals(true, findSubstring);
+                        boolean exitoDesapilar = p.desapilar();
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertFalse(exitoDesapilar);
+                        assertTrue(pilaVacia);
+                        assertNull(tope);
+                        assertTrue(subcadenaEncontrada);
                 }
                 
                 @Test
                 public void testClonarPilaVacia()
                 {
                         Pila p = new Pila();
-                        Pila pClone = p.clone();
-                        boolean ev = p.esVacia();
-                        boolean evClone = pClone.esVacia();
-                        Object t = p.obtenerTope();
-                        Object tClone = pClone.obtenerTope();
-                        String s = p.toString();
-                        String sClone = pClone.toString();
-                        String rx = "\\[\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        boolean findSubstringClone = esSubcadena(sClone, rx);
-                        assertEquals(true, ev);
-                        assertEquals(true, evClone);
-                        assertEquals(null, t);
-                        assertEquals(null, tClone);
-                        assertEquals(true, findSubstring);
-                        assertEquals(true, findSubstringClone);
-                        assertNotEquals(pClone, p);
-                        assertEquals(s, sClone);
+                        Pila pClon = p.clone();
+                        boolean pilaVacia = p.esVacia();
+                        boolean pilaClonVacia = pClon.esVacia();
+                        Object tope = p.obtenerTope();
+                        Object topeClon = pClon.obtenerTope();
+                        String pilaString = p.toString();
+                        String pilaClonString = pClon.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        boolean subcadenaEncontradaClon = esSubcadena(pilaClonString, expresion);
+                        assertTrue(pilaVacia);
+                        assertTrue(pilaClonVacia);
+                        assertNull(tope);
+                        assertNull(topeClon);
+                        assertTrue(subcadenaEncontrada);
+                        assertTrue(subcadenaEncontradaClon);
+                        assertNotEquals(pClon, p);
+                        assertEquals(pilaString, pilaClonString);
                 }
         }
         
@@ -137,112 +137,115 @@ public class PilaTest
                 public void testApilarElementoEnPilaNoVacia1()
                 {
                         Pila p = cargarPila("1,2", ',');
-                        boolean ap = p.apilar(3);
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[3,2,1\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, ap);
-                        assertEquals(false, ev);
-                        assertEquals(3, t);
-                        assertEquals(true, findSubstring);
+                        boolean exitoApilar = p.apilar(3);
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[3,2,1\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(exitoApilar);
+                        assertFalse(pilaVacia);
+                        assertEquals(3, tope);
+                        assertTrue(subcadenaEncontrada);
                 }
 
                 @Test
                 public void testApilarElementoEnPilaNoVacia2()
                 {
                         Pila p = cargarPila("A,B", ',');
-                        boolean ap = p.apilar("C");
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[C,B,A\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, ap);
-                        assertEquals(false, ev);
-                        assertEquals("C", t);
-                        assertEquals(true, findSubstring);
+                        boolean exitoApilar = p.apilar("C");
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[C,B,A\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(exitoApilar);
+                        assertFalse(pilaVacia);
+                        assertEquals("C", tope);
+                        assertTrue(subcadenaEncontrada);
                 }
 
                 @Test
                 public void testDesapilarPilaConSoloUnElemento()
                 {
                         Pila p = cargarPila("1", ',');
-                        p.desapilar();
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, ev);
-                        assertEquals(null, t);
-                        assertEquals(true, findSubstring);
-
+                        boolean exitoDesapilar = p.desapilar();
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(exitoDesapilar);
+                        assertTrue(pilaVacia);
+                        assertNull(tope);
+                        assertTrue(subcadenaEncontrada);
                 }
 
                 @Test
                 public void testDesapilarPilaConMasDeUnElemento()
                 {
                         Pila p = cargarPila("1,2,3", ',');
-                        boolean des = p.desapilar();
-                        boolean ev = p.esVacia();
-                        Object t = p.obtenerTope();
-                        String s = p.toString();
-                        String rx = "\\[2,1\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        assertEquals(true, des);
-                        assertEquals(false, ev);
-                        assertEquals("2", t);
-                        assertEquals(true, findSubstring);
+                        boolean exitoDesapilar = p.desapilar();
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[2,1\\]";
+                        boolean findSubstring = esSubcadena(pilaString, expresion);
+                        assertTrue(exitoDesapilar);
+                        assertFalse(pilaVacia);
+                        assertEquals("2", tope);
+                        assertTrue(findSubstring);
                 }
                 
                 @Test
                 public void testClonarPilaNoVacia()
                 {
                         Pila p = cargarPila("1,2,3", ',');
-                        Pila pClone = p.clone();
-                        boolean ev = p.esVacia();
-                        boolean evClone = pClone.esVacia();
-                        Object t = p.obtenerTope();
-                        Object tClone = pClone.obtenerTope();
-                        String s = p.toString();
-                        String sClone = pClone.toString();
-                        String rx = "\\[3,2,1\\]";
-                        boolean findSubstring = esSubcadena(s, rx);
-                        boolean findSubstringClone = esSubcadena(sClone, rx);
-                        assertEquals(false, ev);
-                        assertEquals(false, evClone);
-                        assertEquals("3", t);
-                        assertEquals("3", tClone);
-                        assertEquals(true, findSubstring);
-                        assertEquals(true, findSubstringClone);
-                        assertNotEquals(pClone, p);
-                        assertEquals(s, sClone);
+                        Pila pClon = p.clone();
+                        boolean pilaVacia = p.esVacia();
+                        boolean pilaClonVacia = pClon.esVacia();
+                        Object tope = p.obtenerTope();
+                        Object topeClon = pClon.obtenerTope();
+                        String pilaString = p.toString();
+                        String pilaClonString = pClon.toString();
+                        String expresion = "\\[3,2,1\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        boolean subcadenaEncontradaClon = esSubcadena(pilaClonString, expresion);
+                        assertFalse(pilaVacia);
+                        assertFalse(pilaClonVacia);
+                        assertEquals("3", tope);
+                        assertEquals("3", topeClon);
+                        assertTrue(subcadenaEncontrada);
+                        assertTrue(subcadenaEncontradaClon);
+                        assertNotEquals(pClon, p);
+                        assertEquals(pilaString, pilaClonString);
                 }
         }
         
         @Test
         public void verificarPilaCapicua()
         {
+                // Si la pila está vacía, por defecto es capicúa.
                 boolean capicua = true;
-                Pila pilitaOriginal = cargarPila("1,2,3,2,1", ',');
-                //Pila pilitaOriginal = cargarPila("A,B,C,B,A", ',');
-                Pila pilitaClon = pilitaOriginal.clone();
-                Pila pilitaInvertida = new Pila();
-                while (!pilitaOriginal.esVacia()) {
-                        pilitaInvertida.apilar(pilitaOriginal.obtenerTope());
-                        pilitaOriginal.desapilar();
-                }
-                // Comparar pilitaInvertida con pilitaClon y reapilar la pila
-                // original, para eficiencia agregar condición `&& capicua`
-                // pero la pila original se perderá.
-                while (!pilitaInvertida.esVacia()) {
-                        if (!pilitaInvertida.obtenerTope().equals(pilitaClon.obtenerTope()))
-                                capicua = false;
-                        pilitaOriginal.apilar(pilitaClon.obtenerTope());
-                        pilitaClon.desapilar();
-                        pilitaInvertida.desapilar();
+                Pila pilaOriginal = cargarPila("1,2,3,2,1", ',');
+                // Pila pilaOriginal = cargarPila("A,B,C,C,B,A", ',');
+
+                if (!pilaOriginal.esVacia()) {
+                        Pila pilaClon = pilaOriginal.clone();
+                        Pila pilaInvertida = new Pila();
+                        // Cargamos una pila como inversa de la pila original
+                        while (!pilaOriginal.esVacia()) {
+                                pilaInvertida.apilar(pilaOriginal.obtenerTope());
+                                pilaOriginal.desapilar();
+                        }
+                        while (!pilaInvertida.esVacia()) {
+                                if (!pilaInvertida.obtenerTope().equals(pilaClon.obtenerTope()))
+                                        capicua = false;
+                                // Sea capicúa o no, debemos reapilar la pila original
+                                pilaOriginal.apilar(pilaInvertida.obtenerTope());
+                                pilaInvertida.desapilar();
+                                pilaClon.desapilar();
+                        }
                 }
                 assertTrue(capicua);
         }

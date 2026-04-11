@@ -2,21 +2,24 @@ package lineales.estaticas;
 
 /**
  * Implementación del TDA Pila Estática.
- * Consideraciones ligadas a la implementación estática:
- *  - Pila vacía: tope < 0
- *  - Pila llena: tope >= TAMAGNO - 1
- * 
+ *
  * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
- * @version 2.0
+ * @version 3.0
  */
-public class Pila
+public class Pila implements Cloneable
 {
+        /**
+         * Consideraciones ligadas a la implementación estática:
+         * - Pila vacía: tope < 0.
+         * - Pila llena: tope >= TAMAGNO - 1.
+         */
         private static final int TAMAGNO = 10;
         private Object[] arreglo;
         private int tope;
         
         /**
-         * Crea una nueva instancia de pila vacía.
+         * Constructor por defecto de la clase Pila.
+         * Inicializa una pila vacía con el tamaño definido.
          */
         public Pila()
         {
@@ -28,7 +31,7 @@ public class Pila
          * Coloca un nuevo elemento en el tope de la pila, si no está llena.
          * 
          * @param unElemento El elemento que se desea colocar en la pila.
-         * @return Si el apilado fué exitoso, en pila llena retorna false.
+         * @return true si el apilado fué exitoso, en pila llena retorna false.
          */
         public boolean apilar(Object unElemento)
         {
@@ -46,7 +49,7 @@ public class Pila
         /**
          * Quita el elemento en el tope de la pila, si no está vacía.
          * 
-         * @return Si el desapilado fué exitoso, en pila vacía retorna false.
+         * @return true si el desapilado fué exitoso, en pila vacía retorna false.
          */
         public boolean desapilar()
         {
@@ -62,9 +65,9 @@ public class Pila
         }
         
         /**
-         * Retorna el elemento en el tope de la pila, si no está vacía.
+         * Retorna el elemento en el tope de la pila.
          * 
-         * @return El elemento en el tope, null si está vacía.
+         * @return El elemento ubicado en el tope, null si está vacía.
          */
         public Object obtenerTope()
         {
@@ -76,9 +79,9 @@ public class Pila
         }
         
         /**
-         * Verifica si la pila no tiene elementos.
-         * 
-         * @return Si no tiene elementos, retorna true.
+         * Verifica si la pila está vacía, sin elementos.
+         *
+         * @return true si la pila no contiene elementos, false en caso contrario.
          */
         public boolean esVacia()
         {
@@ -86,7 +89,7 @@ public class Pila
         }
         
         /**
-         * Quita todos los elementos de la pila.
+         * Vacía completamente la pila, estableciendo cada posición del arreglo en null.
          */
         public void vaciar()
         {
@@ -98,7 +101,7 @@ public class Pila
         }
         
         /**
-         * Devuelve una copia exacta de los datos en la estructura original, y
+         * Retorna una copia exacta de los datos en la estructura original, y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
          * 
          * @return Un clon de la pila original (como la oveja Dolly).

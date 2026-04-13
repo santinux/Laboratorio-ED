@@ -1,7 +1,7 @@
 package lineales;
 
-import lineales.estaticas.Cola;
-//import lineales.dinamicas.Cola;
+//import lineales.estaticas.Cola;
+import lineales.dinamicas.Cola;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

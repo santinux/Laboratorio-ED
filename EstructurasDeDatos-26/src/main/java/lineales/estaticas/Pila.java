@@ -101,7 +101,7 @@ public class Pila implements Cloneable
         }
         
         /**
-         * Retorna una copia exacta de los datos en la estructura original, y
+         * Retorna una copia exacta de los datos en la estructura original y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
          * 
          * @return Un clon de la pila original (como la oveja Dolly).

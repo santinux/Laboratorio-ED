@@ -2,10 +2,13 @@ package lineales;
 
 //import lineales.estaticas.Pila;
 import lineales.dinamicas.Pila;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -16,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * para una pila donde los elemenos apilados fueron 1, 2 y 3 en ese orden.
  * El texto de salida del toString() puede contener cualquier otro texto antes
  * o después de la subcadena anterior.
- * 
- * @author Cátedra EDAT-FAI-UNCOMA
+ *
+ * @author Cátedra Estructuras de Datos - Dpto. de Programación, FAI, UNCO.
  * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 3.0
  */
@@ -29,13 +32,12 @@ public class PilaTest
                 char c;
                 int longitudElementos = elementos.length();
                 String elemento = "";
-                Pila p = new Pila(); 
+                Pila p = new Pila();
                 for (int i = 0; i < longitudElementos; i++) {
                         c = elementos.charAt(i);
                         if ((c == separador) || (i + 1) == longitudElementos) {
-                                if ((i + 1) == longitudElementos) {
+                                if ((i + 1) == longitudElementos)
                                         elemento += c;
-                                }
                                 p.apilar(elemento);
                                 elemento = "";
                         } else {
@@ -134,7 +136,7 @@ public class PilaTest
         class PilaNoVacia
         {
                 @Test
-                public void testApilarElementoEnPilaNoVacia1()
+                public void testApilarElementoEnPilaNoVacia()
                 {
                         Pila p = cargarPila("1,2", ',');
                         boolean exitoApilar = p.apilar(3);
@@ -148,9 +150,9 @@ public class PilaTest
                         assertEquals(3, tope);
                         assertTrue(subcadenaEncontrada);
                 }
-
+                
                 @Test
-                public void testApilarElementoEnPilaNoVacia2()
+                public void testApilarElementoEnPilaNoVacia1()
                 {
                         Pila p = cargarPila("A,B", ',');
                         boolean exitoApilar = p.apilar("C");
@@ -164,7 +166,7 @@ public class PilaTest
                         assertEquals("C", tope);
                         assertTrue(subcadenaEncontrada);
                 }
-
+                
                 @Test
                 public void testDesapilarPilaConSoloUnElemento()
                 {
@@ -180,7 +182,7 @@ public class PilaTest
                         assertNull(tope);
                         assertTrue(subcadenaEncontrada);
                 }
-
+                
                 @Test
                 public void testDesapilarPilaConMasDeUnElemento()
                 {
@@ -195,6 +197,21 @@ public class PilaTest
                         assertFalse(pilaVacia);
                         assertEquals("2", tope);
                         assertTrue(findSubstring);
+                }
+                
+                @Test
+                public void testVaciarPila()
+                {
+                        Pila p = cargarPila("1,2,3", ',');
+                        p.vaciar();
+                        boolean pilaVacia = p.esVacia();
+                        Object tope = p.obtenerTope();
+                        String pilaString = p.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(pilaString, expresion);
+                        assertTrue(pilaVacia);
+                        assertNull(tope);
+                        assertTrue(subcadenaEncontrada);
                 }
                 
                 @Test
@@ -229,7 +246,7 @@ public class PilaTest
                 boolean capicua = true;
                 Pila pilaOriginal = cargarPila("1,2,3,2,1", ',');
                 // Pila pilaOriginal = cargarPila("A,B,C,C,B,A", ',');
-
+                
                 if (!pilaOriginal.esVacia()) {
                         Pila pilaClon = pilaOriginal.clone();
                         Pila pilaInvertida = new Pila();

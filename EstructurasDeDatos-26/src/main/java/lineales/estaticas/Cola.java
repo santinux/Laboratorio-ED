@@ -13,7 +13,7 @@ public class Cola implements Cloneable
          * - Cola vacía: frente == fin.
          * - Cola llena: (fin + 1) % TAMAGNO == frente.
          */
-        private static final int TAMAGNO = 10;
+        private static final int TAMAGNO = 32;
         private Object[] arreglo;
         private int frente;
         private int fin;

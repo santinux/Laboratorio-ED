@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Versión modificada del test propuesto por la cátedra, se añaden además,
- * los ejercicios correspondientes del apunte 2, al final.
+ * Versión modificada del test propuesto por la cátedra.
  * Se asume que la salida de toString() para cola devuelve un texto que incluye
  * la subcadena del tipo [1,2,3] donde 1 es el frente y 3 el final de la cola,
  * para una cola donde los elemenos encolados fueron 1, 2 y 3 en ese orden.

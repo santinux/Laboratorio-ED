@@ -13,7 +13,7 @@ public class Pila implements Cloneable
          * - Pila vacía: tope < 0.
          * - Pila llena: tope >= TAMAGNO - 1.
          */
-        private static final int TAMAGNO = 10;
+        private static final int TAMAGNO = 32;
         private Object[] arreglo;
         private int tope;
         

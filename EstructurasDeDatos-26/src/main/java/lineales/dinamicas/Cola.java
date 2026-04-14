@@ -105,6 +105,7 @@ public class Cola implements Cloneable
          *
          * @return Un clon de la cola original (como la oveja Dolly).
          */
+        @Override
         public Cola clone()
         {
                 Cola dolly = new Cola();
@@ -134,6 +135,7 @@ public class Cola implements Cloneable
          *
          * @return Cadena con los elementos de la cola.
          */
+        @Override
         public String toString()
         {
                 StringBuilder colaString = new StringBuilder("[");

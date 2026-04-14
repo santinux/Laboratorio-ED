@@ -130,7 +130,7 @@ public class Pila implements Cloneable
          */
         private void toStringAux(Nodo unNodo, StringBuilder unString) {
                 if (unNodo != null) {
-                        unString.append(unNodo.getElemento().toString());
+                        unString.append(unNodo.getElemento());
                         if (unNodo.getEnlace() != null)
                                 unString.append(",");
                         toStringAux(unNodo.getEnlace(), unString);

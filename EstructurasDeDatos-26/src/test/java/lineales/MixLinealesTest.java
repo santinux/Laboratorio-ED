@@ -1,9 +1,9 @@
 package lineales;
 
-import lineales.estaticas.Cola;
-//import lineales.dinamicas.Cola;
-import lineales.estaticas.Pila;
-//import lineales.dinamicas.Pila;
+//import lineales.estaticas.Cola;
+import lineales.dinamicas.Cola;
+//import lineales.estaticas.Pila;
+import lineales.dinamicas.Pila;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +51,7 @@ public class MixLinealesTest
                 Cola unaColaClon = unaCola.clone();
                 Cola otraCola = new Cola();
                 Pila pila = new Pila();
+                Object simbolo = new Object();
                 do {
                         if (!unaColaClon.esVacia() && !unaColaClon.obtenerFrente().equals("$")) {
                                 // Hasta no hallar el símbolo, encola el elemento en orden normal
@@ -65,7 +66,9 @@ public class MixLinealesTest
                                         pila.desapilar();
                                 }
                                 // Pone el '$' en la cola'
-                                otraCola.poner(unaColaClon.obtenerFrente());
+                                simbolo = unaColaClon.obtenerFrente();
+                                if (simbolo != null)
+                                        otraCola.poner(simbolo);
                         }
                 } while (unaColaClon.sacar());
                 return (otraCola);

@@ -150,16 +150,16 @@ public class Lista implements Cloneable
         {
                 int longitud = 0;
                 if (this.cabecera != null)
-                        longitudAux(this.cabecera, longitud);
+                        longitud = longitudAux(this.cabecera, longitud);
                 return longitud;
         }
         
-        private void longitudAux(Nodo unNodo, int unContador)
+        private int longitudAux(Nodo unNodo, int unContador)
         {
                 if (unNodo != null) {
-                        unContador++;
-                        longitudAux(unNodo.getEnlace(), unContador);
+                        unContador = longitudAux(unNodo.getEnlace(), unContador + 1);
                 }
+                return (unContador);
         }
         
         public boolean esVacia()

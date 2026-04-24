@@ -48,9 +48,6 @@ public class ListaTest {
     @Test
     public void testCreateEmptyList() {
         Lista l = new Lista();
-        l.insertar(1,1);
-        l.insertar(2,2);
-        l.insertar(3,3);
         boolean ev = l.esVacia();
         Object e = l.recuperar(1);
         String s = l.toString();
@@ -63,10 +60,10 @@ public class ListaTest {
 
     @Test
     public void testInsertFirstElementInEmptyList() {
-        Lista l=new Lista();
+        Lista l = new Lista();
         boolean ins = l.insertar(1,1);
         boolean ev = l.esVacia();
-        int e = (int) l.recuperar(1);
+        Object e = l.recuperar(1);
         String s = l.toString();
         assertEquals(ins,true);
         assertEquals(ev,false);
@@ -74,8 +71,7 @@ public class ListaTest {
         String rx="\\[1\\]";
         boolean findSubstring = isSubstring(s,rx);
         assertEquals(findSubstring,true);
-
-    };
+    }
 
     @Test
     public void testInsertLastElementInNonEmtpyList() {

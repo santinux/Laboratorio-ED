@@ -1,296 +1,321 @@
 package lineales;
+
 import lineales.dinamicas.Lista;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * Versión modificada del test propuesto por la cátedra.
+ * Se asume que la salida de toString() para lista devuelve un texto que incluye
+ * la subcadena del tipo [1,2,3] donde 1 es el primero y 3 el último de la lista,
+ * para una lista donde los elementos insertados fueron 1, 2 y 3 en ese orden.
+ * El texto de salida del toString() puede contener cualquier otro texto antes
+ * o después de la subcadena anterior.
  *
- * @author Catedra EDAT - FAI - UNCOMA
- *         Ultima modificación: 10/04/2025
- *
+ * @author Cátedra Estructuras de Datos - Dpto. de Programación, FAI, UNCO.
+ * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
+ * @version 3.0
  */
 
-public class ListaTest {
-
-    private static boolean isSubstring(String s, String rx){
-        Pattern pattern = Pattern.compile(rx);
-        Matcher matcher = pattern.matcher(s);
-        boolean findSubstring = false;
-        while (matcher.find()) {
-            //System.out.println(s.substring(matcher.start(), matcher.end()));
-            findSubstring = true;
+public class ListaTest
+{
+        private static Lista cargarLista(String elementos, char separador)
+        {
+                char d;
+                int longitudElementos = elementos.length();
+                String elemento = "";
+                Lista l = new Lista();
+                for (int i = 0; i < longitudElementos; i++) {
+                        d = elementos.charAt(i);
+                        if ((d == separador) || (i + 1) == longitudElementos) {
+                                if ((i + 1) == longitudElementos)
+                                        elemento += d;
+                                l.insertar(Integer.parseInt(elemento), 1);
+                                elemento = "";
+                        } else {
+                                elemento += d;
+                        }
+                }
+                return l;
         }
-        return findSubstring;
-    }
 
-    private static Lista loadList(String elements, char separator) {
-        Lista l = new Lista();
-        int lengthElements = elements.length();
-        char d = ' ';
-        String number = "";
-        for (int i = 0; i < lengthElements; i++) {
-            d = elements.charAt(i);
-            if ((d == separator) || (i + 1) == lengthElements) {
-                if ((i + 1) == lengthElements)
-                    number += d;
-                l.insertar(Integer.parseInt(number),1);
-                number = "";
-            } else {
-                number += d;
-            }
+        private static boolean esSubcadena(String unaCadena, String unaExpresion)
+        {
+                Pattern pattern = Pattern.compile(unaExpresion);
+                Matcher matcher = pattern.matcher(unaCadena);
+                boolean encontrada = false;
+                while (matcher.find()) {
+                        encontrada = true;
+                }
+                return encontrada;
         }
-        return l;
-    }
 
-    @Test
-    public void testCreateEmptyList() {
-        Lista l = new Lista();
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(ev,true);
-        assertEquals(e, null);
-        String rx="\\[\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
+        @Nested
+        class ListaVacia
+        {
+                @Test
+                public void testCrearListaVacia()
+                {
+                        Lista l = new Lista();
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = listaString.matches(expresion);
+                        assertTrue(listaVacia);
+                        assertNull(elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testInsertFirstElementInEmptyList() {
-        Lista l = new Lista();
-        boolean ins = l.insertar(1,1);
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(ins,true);
-        assertEquals(ev,false);
-        assertEquals(e, 1);
-        String rx="\\[1\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    }
+                @Test
+                public void testInsertarPrimerElemento()
+                {
+                        Lista l = new Lista();
+                        boolean exitoInsertar = l.insertar(1, 1);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[1\\]";
+                        boolean subcadenaEncontrada = listaString.matches(expresion);
+                        assertTrue(exitoInsertar);
+                        assertFalse(listaVacia);
+                        assertEquals(1, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testInsertLastElementInNonEmtpyList() {
-        Lista l=loadList("3,2,1", ',');
-        boolean ins = l.insertar(4,4);
-        boolean ev = l.esVacia();
-        int e = (int) l.recuperar(4);
-        String s = l.toString();
-        assertEquals(ins,true);
-        assertEquals(ev,false);
-        assertEquals(e, 4);
-        String rx="\\[1,2,3,4\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
+                @Test
+                public void testEliminarListaVacia()
+                {
+                        Lista l = new Lista();
+                        boolean exitoEliminar = l.eliminar(1);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = listaString.matches(expresion);
+                        assertFalse(exitoEliminar);
+                        assertTrue(listaVacia);
+                        assertNull(elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    };
+                @Test
+                public void testClonarListaVacia()
+                {
+                        Lista l = new Lista();
+                        Lista listaClon = l.clone();
+                        boolean listaVacia = l.esVacia();
+                        boolean listaClonVacia = listaClon.esVacia();
+                        Object elemento = l.recuperar(1);
+                        Object elementoClon = listaClon.recuperar(1);
+                        String listaString = l.toString();
+                        String listaClonString = listaClon.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        boolean subcadenaEncontradaClon = esSubcadena(listaClonString, expresion);
+                        assertTrue(listaVacia);
+                        assertTrue(listaClonVacia);
+                        assertNull(elemento);
+                        assertNull(elementoClon);
+                        assertTrue(subcadenaEncontrada);
+                        assertTrue(subcadenaEncontradaClon);
+                        assertNotEquals(listaClon, l);
+                        assertEquals(listaString, listaClonString);
+                }
+        }
 
-    @Test
-    public void testInsertElementInTheMiddleOfList() {
-        Lista l=loadList("4,2,1", ',');
-        boolean ins = l.insertar(3,3);
-        boolean ev = l.esVacia();
-        int e = (int) l.recuperar(3);
-        String s = l.toString();
-        assertEquals(ins,true);
-        assertEquals(ev,false);
-        assertEquals(e, 3);
-        String rx="\\[1,2,3,4\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
+        @Nested
+        class listaNoVacia
+        {
+                @Test
+                public void testInsertarUltimoElementoEnListaNoVacia()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        boolean exitoInsertar = l.insertar(4, 4);
+                        boolean listaVacia = l.esVacia();
+                        int elemento = (int) l.recuperar(4);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3,4\\]";
+                        boolean subcadenaEncontrada = listaString.matches(expresion);
+                        assertTrue(exitoInsertar);
+                        assertFalse(listaVacia);
+                        assertEquals(4, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    };
+                @Test
+                public void testInsertarElementoEnMedioDeListaNoVacia()
+                {
+                        Lista l = cargarLista("4,2,1", ',');
+                        boolean exitoInsertar = l.insertar(3, 3);
+                        boolean listaVacia = l.esVacia();
+                        int elemento = (int) l.recuperar(3);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3,4\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertTrue(exitoInsertar);
+                        assertFalse(listaVacia);
+                        assertEquals(3, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
+                @Test
+                public void testEliminarListaConSoloUnElemento()
+                {
+                        Lista l = cargarLista("1", ',');
+                        boolean exitoEliminar = l.eliminar(1);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = listaString.matches(expresion);
+                        assertTrue(exitoEliminar);
+                        assertTrue(listaVacia);
+                        assertNull(elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
+                @Test
+                public void testEliminarElementoEnMedioDeListaNoVacia()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        boolean exitoEliminar = l.eliminar(2);
+                        boolean listaVacia = l.esVacia();
+                        int elemento = (int) l.recuperar(2);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertTrue(exitoEliminar);
+                        assertFalse(listaVacia);
+                        assertEquals(3, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testRemoveElementFromListWithOnlyOneElement() {
-        Lista l=loadList("1",',');
-        boolean elim = l.eliminar(1);
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(elim,true);
-        assertEquals(ev,true);
-        assertEquals(e, null);
-        String rx="\\[\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
+                @Test
+                public void testEliminarUltimoElementoDeListaNoVacia()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        boolean exitoEliminar = l.eliminar(3);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento1 = l.recuperar(3);
+                        int elemento2 = (int) l.recuperar(2);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertTrue(exitoEliminar);
+                        assertFalse(listaVacia);
+                        assertNull(elemento1);
+                        assertEquals(2, elemento2);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    };
+                @Test
+                public void testVaciarLista()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        l.vaciar();
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertTrue(listaVacia);
+                        assertNull(elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testRemoveElementInTheMiddleOfList() {
-        Lista l=loadList("3,2,1",',');
-        boolean elim = l.eliminar(2);
-        boolean ev = l.esVacia();
-        int e = (int) l.recuperar(2);
-        String s = l.toString();
-        assertEquals(elim,true);
-        assertEquals(ev,false);
-        assertEquals(e, 3);
-        String rx="\\[1,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
+                @Test
+                public void testLocalizarPrimerElemento()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        int posicion = (int) l.localizar(1);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(1);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertEquals(1, posicion);
+                        assertFalse(listaVacia);
+                        assertEquals(1, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    };
+                @Test
+                public void testLocalizarElementoEnMedioDeListaNoVacia()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        int posicion = (int) l.localizar(2);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(2);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertEquals(2, posicion);
+                        assertFalse(listaVacia);
+                        assertEquals(2, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testRemoveElementAtLastOfNonEmptyList() {
-        Lista l=loadList("3,2,1",',');
-        boolean elim = l.eliminar(3);
-        boolean ev = l.esVacia();
-        Object e1 = l.recuperar(3);
-        int e2 = (int) l.recuperar(2);
-        String s = l.toString();
-        assertEquals(elim,true);
-        assertEquals(ev,false);
-        assertEquals(e1, null);
-        assertEquals(e2, 2);
-        String rx="\\[1,2\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
+                @Test
+                public void testLocalizarUltimoElemento()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        int posicion = (int) l.localizar(3);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(3);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertEquals(3, posicion);
+                        assertFalse(listaVacia);
+                        assertEquals(3, elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    };
+                @Test
+                public void testLocalizarElementoQueNoEstaEnLista()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        int posicion = (int) l.localizar(4);
+                        boolean listaVacia = l.esVacia();
+                        Object elemento = l.recuperar(4);
+                        String listaString = l.toString();
+                        String expresion = "\\[1,2,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        assertEquals(-1, posicion);
+                        assertFalse(listaVacia);
+                        assertNull(elemento);
+                        assertTrue(subcadenaEncontrada);
+                }
 
-    @Test
-    public void testRemoveFromEmptyList() {
-        Lista l=new Lista();
-        boolean sac = l.eliminar(1);
-        boolean ev = l.esVacia();
-        Object f = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(sac,false);
-        assertEquals(ev,true);
-        assertEquals(f, null);
-        String rx="\\[\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-
-    };
-
-    @Test
-    public void testEmptyList() {
-        Lista l=loadList("3,2,1",',');
-        l.vaciar();
-        boolean ev = l.esVacia();
-        Object f = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(ev,true);
-        assertEquals(f, null);
-        String rx="\\[\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
-    @Test
-    public void testFindFirstElement() {
-        Lista l=loadList("3,2,1",',');
-        int p1 = (int) l.localizar(1);
-        boolean ev = l.esVacia();
-        Object c = l.recuperar(1);
-        String s = l.toString();
-        assertEquals(p1,1);
-        assertEquals(ev,false);
-        assertEquals(c, 1);
-        String rx="\\[1,2,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
-
-    @Test
-    public void testFindElementInTheMiddleList() {
-        Lista l=loadList("3,2,1",',');
-        int pm = (int) l.localizar(2);
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(2);
-        String s = l.toString();
-        assertEquals(pm,2);
-        assertEquals(ev,false);
-        assertEquals(e, 2);
-        String rx="\\[1,2,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
-
-    @Test
-    public void testFindLastElementInTheList() {
-        Lista l=loadList("3,2,1",',');
-        int lp = (int) l.localizar(3);
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(3);
-        String s = l.toString();
-        assertEquals(lp,3);
-        assertEquals(ev,false);
-        assertEquals(e, 3);
-        String rx="\\[1,2,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
-
-    @Test
-    public void testFindElementNotInTheList() {
-        Lista l=loadList("3,2,1",',');
-        int lp = (int) l.localizar(4);
-        boolean ev = l.esVacia();
-        Object e = l.recuperar(4);
-        String s = l.toString();
-        assertEquals(lp,-1);
-        assertEquals(ev,false);
-        assertEquals(e, null);
-        String rx="\\[1,2,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        assertEquals(findSubstring,true);
-    };
-
-    @Test
-    public void testCloneNonEmptyList(){
-        Lista l=loadList("3,2,1",',');
-        Lista lClone=l.clone();
-        boolean ev = l.esVacia();
-        boolean evClone = lClone.esVacia();
-        Object c = l.recuperar(1);
-        Object cClone = lClone.recuperar(1);
-        String s = l.toString();
-        String sClone = lClone.toString();
-        String rx="\\[1,2,3\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        boolean findSubstringClone = isSubstring(sClone, rx);
-        assertEquals(ev,false);
-        assertEquals(evClone,false);
-        assertEquals(c, 1);
-        assertEquals(cClone,1);
-        assertEquals(findSubstring,true);
-        assertEquals(findSubstringClone,true);
-        assertNotEquals(lClone,l);
-        assertEquals(s,sClone);
-    }
-
-    @Test
-    public void testCloneEmptyStack(){
-        Lista l=new Lista();
-        Lista lClone=l.clone();
-        boolean ev = l.esVacia();
-        boolean evClone = lClone.esVacia();
-        Object c = l.recuperar(1);
-        Object cClone = lClone.recuperar(1);
-        String s = l.toString();
-        String sClone = lClone.toString();
-        String rx="\\[\\]";
-        boolean findSubstring = isSubstring(s,rx);
-        boolean findSubstringClone = isSubstring(sClone, rx);
-        assertEquals(ev,true);
-        assertEquals(evClone,true);
-        assertEquals(c, null);
-        assertEquals(cClone,null);
-        assertEquals(findSubstring,true);
-        assertEquals(findSubstringClone,true);
-        assertNotEquals(lClone,l);
-        assertEquals(s,sClone);
-        
-    }
-
+                @Test
+                public void testClonarListaNoVacia()
+                {
+                        Lista l = cargarLista("3,2,1", ',');
+                        Lista listaClon = l.clone();
+                        boolean listaVacia = l.esVacia();
+                        boolean listaClonVacia = listaClon.esVacia();
+                        Object elemento = l.recuperar(1);
+                        Object elementoClon = listaClon.recuperar(1);
+                        String listaString = l.toString();
+                        String listaClonString = listaClon.toString();
+                        String expresion = "\\[1,2,3\\]";
+                        boolean subcadenaEncontrada = esSubcadena(listaString, expresion);
+                        boolean subcadenaEncontradaClon = esSubcadena(listaClonString, expresion);
+                        assertFalse(listaVacia);
+                        assertFalse(listaClonVacia);
+                        assertEquals(1, elemento);
+                        assertEquals(1, elementoClon);
+                        assertTrue(subcadenaEncontrada);
+                        assertTrue(subcadenaEncontradaClon);
+                        assertNotEquals(listaClon, l);
+                        assertEquals(listaString, listaClonString);
+                }
+        }
 }

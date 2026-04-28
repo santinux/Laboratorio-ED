@@ -15,18 +15,14 @@ public class Lista implements Cloneable
                 // La posición a insertar no debe exceder los límites de la estructura
                 if (unaPosicion >= 1 && unaPosicion <= this.longitud() + 1) {
                         if (unaPosicion == 1) {
-                                if (this.cabecera == null) {
-                                        // Primera posición y lista vacía
-                                        this.cabecera = new Nodo(unElemento, null);
-                                } else {
-                                        // Primera posición y lista no vacía
-                                        this.cabecera = new Nodo(unElemento, this.cabecera);
-                                }
+                                // Primera posición en la lista
+                                this.cabecera = new Nodo(unElemento, this.cabecera);
                                 exito = true;
                         } else {
                                 // Cualquier otra posición de la lista
                                 exito = insertarAux(this.cabecera, unElemento, unaPosicion);
-                                /*
+                                
+                                /* Enfoque iterativo
                                 Nodo nodoAux = this.cabecera;
                                 int posicionActual = 1;
                                 // Navegar la lista hasta llegar a la posición anterior a la deseada
@@ -128,19 +124,17 @@ public class Lista implements Cloneable
         {
                 int posicion = -1;
                 if (unNodo != null) {
-                        if (unNodo.getElemento() == null) {
+                        if (unElemento == null && unNodo.getElemento() == null) {
                                 // Si el elemento buscado es null se asigna 1 porque se encontró
-                                posicion = (unElemento == null) ? 1 : -1;
-                        } else if (unNodo.getElemento().equals(unElemento)) {
+                                posicion = 1;
+                        } else if (unNodo.getElemento() != null && unNodo.getElemento().equals(unElemento)) {
                                 // Si el elemento buscado se encontró
                                 posicion = 1;
                         } else {
                                 // Navegar la lista hasta encontrar el elemento
-                                int resultado = localizarAux(unNodo.getEnlace(), unElemento) + 1;
-                                // Si en el desapilado de la recursión se devolvió la posición encontrada
-                                if (resultado != -1) {
-                                        posicion = resultado + 1;
-                                }
+                                posicion = localizarAux(unNodo.getEnlace(), unElemento);
+                                // Si en el desapilado de la recursión se devolvió la posición encontrada, se va sumando
+                                if (posicion != -1) posicion++;
                         }
                 }
                 return (posicion);
@@ -150,10 +144,20 @@ public class Lista implements Cloneable
         {
                 int longitud = 0;
                 if (this.cabecera != null)
-                        longitud = longitudAux(this.cabecera, longitud);
-                return longitud;
+                        longitud = longitudAux(this.cabecera);
+                return (longitud);
         }
         
+        private int longitudAux(Nodo unNodo)
+        {
+                int longitud = 0;
+                if (unNodo != null) {
+                        longitud = longitudAux(unNodo.getEnlace()) + 1;
+                }
+                return (longitud);
+        }
+        
+        @Deprecated
         private int longitudAux(Nodo unNodo, int unContador)
         {
                 if (unNodo != null) {
@@ -185,7 +189,7 @@ public class Lista implements Cloneable
         {
                 if (unNodo != null) {
                         unaLista.insertar(unNodo.getElemento(), unaPosicion);
-                        unaPosicion++;
+                        cloneAux(unNodo.getEnlace(), unaPosicion + 1, unaLista);
                 }
         }
         

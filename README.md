@@ -15,7 +15,7 @@ Laboratorio de Estructuras de Datos
 - [x] Lista
 
 ### Jerárquicas:
-- [ ] Árbol Binario
+- [x] Árbol Binario
 
 - [ ] Árbol Genérico
 

@@ -17,7 +17,7 @@ public class ArbolGenerico implements Cloneable
                         this.raiz = new NodoGenerico(unElementoHijo, null, null);
                         exito = true;
                 } else {
-                        NodoGenerico nodoPadre = obtenerNodo(this.raiz, unElementoPadre);
+                        NodoGenerico nodoPadre = obtenerNodo(unElementoPadre);
                         if (nodoPadre != null) {
                                 if (nodoPadre.getHijoIzquierdo() == null) {
                                         // Si el nodo padre no tiene hijos, se inserta como hijo izquierdo
@@ -33,8 +33,13 @@ public class ArbolGenerico implements Cloneable
                 }
                 return (exito);
         }
+
+        private NodoGenerico obtenerNodo(Object unElemento)
+        {
+                return (obtenerNodoAux(this.raiz, unElemento));
+        }
         
-        private NodoGenerico obtenerNodo(NodoGenerico unNodo, Object unElemento)
+        private NodoGenerico obtenerNodoAux(NodoGenerico unNodo, Object unElemento)
         {
                 // Nodo para almacenar el nodo buscado
                 NodoGenerico nodoEncontrado = null;
@@ -44,15 +49,89 @@ public class ArbolGenerico implements Cloneable
                                 nodoEncontrado = unNodo;
                         } else {
                                 // Busca en el hijo izquierdo
-                                nodoEncontrado = obtenerNodo(unNodo.getHijoIzquierdo(), unElemento);
+                                nodoEncontrado = obtenerNodoAux(unNodo.getHijoIzquierdo(), unElemento);
                                 // Si no se encontró en el hijo, busca en los hermanos
                                 if (nodoEncontrado == null)
-                                        nodoEncontrado = obtenerNodo(unNodo.getHermanoDerecho(), unElemento);
+                                        nodoEncontrado = obtenerNodoAux(unNodo.getHermanoDerecho(), unElemento);
                         }
                 }
                 return (nodoEncontrado);
         }
         
+        public boolean pertenece(Object unElemento)
+        {
+                return (perteneceAux(this.raiz, unElemento));
+        }
+
+        private boolean perteneceAux(NodoGenerico unNodo, Object unElemento)
+        {
+                boolean encontrado = false;
+                if (unNodo != null) {
+                        if (unNodo.getElemento().equals(unElemento)) {
+                                encontrado = true;
+                        } else {
+                                encontrado = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
+                                if (!encontrado)
+                                        encontrado = perteneceAux(unNodo.getHermanoDerecho(), unElemento);
+                        }
+                }
+                return (encontrado);
+        }
+
+        public boolean esVacio()
+        {
+                return (this.raiz == null);
+        }
+
+        public void vaciar()
+        {
+                this.raiz = null;
+        }
+
+        public Object padre(Object unElemento)
+        {
+                Object elementoPadre = null;
+                if (this.raiz == null || !this.raiz.getElemento().equals(unElemento))
+                        elementoPadre = padreAux(this.raiz, unElemento);
+                return (elementoPadre);
+        }
+
+        private Object padreAux(NodoGenerico unNodo, Object unElemento)
+        {
+                Object elementoPadre = null;
+                if (unNodo != null) {
+                        if (unNodo.getHijoIzquierdo() != null && unNodo.getHijoIzquierdo().equals(unElemento)) {
+                                // El elemento indicado es hijo izquierdo
+                                elementoPadre = unNodo.getElemento();
+                        } else if (unNodo.getHijoIzquierdo() != null && unNodo.getHijoIzquierdo().getHermanoDerecho() != null) {
+                                // Busca en los hermanos de su hijo izquierdo
+                                if (esHermano(unNodo.getHijoIzquierdo(), unElemento))
+                                        // El elemento indicado es hijo derecho
+                                        elementoPadre = unNodo.getElemento();
+                        } else {
+                                // Busca en su hijo izquierdo
+                                elementoPadre = padreAux(unNodo.getHijoIzquierdo(), unElemento);
+                                if (elementoPadre == null)
+                                        // Si no se encontró, busca en su hermano derecho
+                                        elementoPadre = padreAux(unNodo.getHermanoDerecho(), unElemento);
+                        }
+                }
+                return (elementoPadre);
+        }
+
+        public boolean esHermano(NodoGenerico unNodo, Object unElemento)
+        {
+                boolean encontrado = false;
+                if (unNodo != null) {
+                        if (unNodo.getElemento().equals(unElemento)) {
+                                encontrado = true;
+                        } else {
+                                encontrado = esHermano(unNodo.getHermanoDerecho(), unElemento);
+                        }
+                }
+                return (encontrado);
+        }
+
         @Override
         public String toString()
         {

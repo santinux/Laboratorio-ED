@@ -132,6 +132,22 @@ public class ArbolGenerico implements Cloneable
                 return (encontrado);
         }
 
+        public int altura()
+        {
+                return (alturaAux(this.raiz));
+        }
+        
+        private int alturaAux(NodoGenerico unNodo)
+        {
+                int contador = -1;
+                if (unNodo != null) {
+                        int contadorHiI = alturaAux(unNodo.getHijoIzquierdo()) + 1;
+                        int contadorHeD = alturaAux(unNodo.getHermanoDerecho());
+                        contador = Math.max(contadorHiI, contadorHeD);
+                }
+                return (contador);
+        }
+        
         @Override
         public String toString()
         {

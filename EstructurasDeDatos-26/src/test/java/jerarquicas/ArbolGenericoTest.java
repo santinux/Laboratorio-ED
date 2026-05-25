@@ -41,4 +41,21 @@ public class ArbolGenericoTest
                 arbolito.insertar("E", "B");
                 assertEquals("A", arbolito.padre("B"));
         }
+        
+        @Test
+        void testAltura()
+        {
+                ArbolGenerico arbolito = new ArbolGenerico();
+                arbolito.insertar("A", "");
+                arbolito.insertar("B", "A");
+                arbolito.insertar("C", "A");
+                arbolito.insertar("D", "A");
+                arbolito.insertar("G", "B");
+                arbolito.insertar("E", "B");
+                arbolito.insertar("F", "B");
+                arbolito.insertar("H", "D");
+                arbolito.insertar("I", "H");
+                System.out.println(arbolito.toString());
+                assertEquals(3, arbolito.altura());
+        }
 }

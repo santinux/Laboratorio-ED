@@ -166,10 +166,39 @@ public class ArbolGenerico implements Cloneable
                 StringBuilder arbolString = new StringBuilder("[");
                 if (this.raiz != null)
                         toStringAux(this.raiz, arbolString);
-                return (arbolString.append("]").toString());
+                return (arbolString.append("\n]").toString());
         }
         
         private void toStringAux(NodoGenerico unNodo, StringBuilder unString)
+        {
+                if (unNodo != null) {
+                        // Escribe en la cadena el elemento del nodo actual
+                        unString.append("\n(").append(unNodo.getElemento()).append(")\n ↓ \n");
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                        if (hijo == null)
+                                unString.append("null");
+                        
+                        // Escribe el elemento de cada hijo recorriendo los hermanos como una lista
+                        while (hijo != null) {
+                                unString.append("(").append(hijo.getElemento()).append(")");
+                                hijo = hijo.getHermanoDerecho();
+                                if (hijo == null) {
+                                        unString.append("→ null");
+                                } else {
+                                        unString.append("→ ");
+                                }
+                        }
+                        // Recorre cada hijo para que agregue sus hijos
+                        hijo = unNodo.getHijoIzquierdo();
+                        while (hijo != null) {
+                                toStringAux(hijo, unString);
+                                hijo = hijo.getHermanoDerecho();
+                        }
+                }
+        }
+        
+        @Deprecated
+        private void toStringAuxDEP(NodoGenerico unNodo, StringBuilder unString)
         {
                 if (unNodo != null) {
                         unString.append("[ ")

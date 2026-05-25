@@ -23,10 +23,22 @@ public class ArbolGenerico implements Cloneable
                                         // Si el nodo padre no tiene hijos, se inserta como hijo izquierdo
                                         nodoPadre.setHijoIzquierdo(new NodoGenerico(unElementoHijo, null, null));
                                 } else {
+                                        /*
+                                        // Este proceso inserta siempre a la izquierda de los demás hermanos
                                         // Si el nodo padre ya tiene por lo menos un hijo, se inserta como hijo izquierdo
                                         NodoGenerico nodoHijo = new NodoGenerico(unElementoHijo, null, nodoPadre.getHijoIzquierdo());
                                         nodoPadre.setHijoIzquierdo(nodoHijo);
-                                        // Este proceso inserta siempre a la izquierda de los demás hermanos
+                                        */
+                                        // Este proceso inserta siempre a la derecha de los demás hermanos
+                                        // Si el nodo padre ya tiene por lo menos un hijo, se inserta a su derecha
+                                        NodoGenerico hijo = nodoPadre.getHijoIzquierdo();
+                                        // Recorre hasta llegar al último hermano
+                                        while (hijo.getHermanoDerecho() != null) {
+                                                hijo = hijo.getHermanoDerecho();
+                                        }
+                                        // Crea e inserta el nuevo nodo como hermano derecho del último hermano derecho
+                                        NodoGenerico nodoHijo = new NodoGenerico(unElementoHijo, null, null);
+                                        hijo.setHermanoDerecho(nodoHijo);
                                 }
                                 exito = true;
                         }

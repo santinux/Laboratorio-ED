@@ -151,13 +151,25 @@ public class ArbolGenerico implements Cloneable
         
         private int alturaAux(NodoGenerico unNodo)
         {
-                int contador = -1;
+                // Cuando se llegue a una hoja se comenzará a sumar desde -1
+                int alturaMax = -1;
                 if (unNodo != null) {
-                        int contadorHiI = alturaAux(unNodo.getHijoIzquierdo()) + 1;
-                        int contadorHeD = alturaAux(unNodo.getHermanoDerecho());
-                        contador = Math.max(contadorHiI, contadorHeD);
+                        // Se apunta al hijo izquierdo y se recorren sus
+                        // hermanos para almacenar la mayor de sus alturas
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                        while (hijo != null) {
+                                // Recorre los hijos y almacena su altura
+                                int altura = alturaAux(hijo);
+                                // Se almacena la mayor de las alturas
+                                if (altura > alturaMax)
+                                        alturaMax = altura;
+                                // Se apunta al hermano derecho
+                                hijo = hijo.getHermanoDerecho();
+                        }
+                        // Justo antes de salir de la recursión, incrementa la altura
+                        alturaMax++;
                 }
-                return (contador);
+                return (alturaMax);
         }
         
         @Override

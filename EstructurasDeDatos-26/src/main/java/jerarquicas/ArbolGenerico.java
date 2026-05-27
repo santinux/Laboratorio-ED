@@ -1,5 +1,7 @@
 package jerarquicas;
 
+import lineales.dinamicas.Lista;
+
 public class ArbolGenerico implements Cloneable
 {
         private NodoGenerico raiz;
@@ -60,11 +62,12 @@ public class ArbolGenerico implements Cloneable
                                 // Si el elemento del nodo coincide con el buscado
                                 nodoEncontrado = unNodo;
                         } else {
-                                // Busca en el hijo izquierdo
-                                nodoEncontrado = obtenerNodoAux(unNodo.getHijoIzquierdo(), unElemento);
-                                // Si no se encontró en el hijo, busca en los hermanos
-                                if (nodoEncontrado == null)
-                                        nodoEncontrado = obtenerNodoAux(unNodo.getHermanoDerecho(), unElemento);
+                                // El nodo recorre sus hijos hasta encontrar el nodo
+                                NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                                while (hijo != null && nodoEncontrado == null) {
+                                        nodoEncontrado = obtenerNodoAux(hijo, unElemento);
+                                        hijo = hijo.getHermanoDerecho();
+                                }
                         }
                 }
                 return (nodoEncontrado);
@@ -80,11 +83,15 @@ public class ArbolGenerico implements Cloneable
                 boolean encontrado = false;
                 if (unNodo != null) {
                         if (unNodo.getElemento().equals(unElemento)) {
+                                // El elemento buscado coincide con el del nodo
                                 encontrado = true;
                         } else {
-                                encontrado = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
-                                if (!encontrado)
-                                        encontrado = perteneceAux(unNodo.getHermanoDerecho(), unElemento);
+                                // El nodo recorre sus hijos hasta encontrarlo
+                                NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                                while (hijo != null && !encontrado) {
+                                        encontrado = perteneceAux(hijo, unElemento);
+                                        hijo = hijo.getHermanoDerecho();
+                                }
                         }
                 }
                 return (encontrado);
@@ -103,47 +110,45 @@ public class ArbolGenerico implements Cloneable
         public Object padre(Object unElemento)
         {
                 Object elementoPadre = null;
-                if (this.raiz == null || !this.raiz.getElemento().equals(unElemento))
+                if (this.raiz != null && (this.raiz.getElemento() != null && !this.raiz.getElemento().equals(unElemento)))
                         elementoPadre = padreAux(this.raiz, unElemento);
                 return (elementoPadre);
         }
-
+        
+        /**
+         * Helper de padre().
+         * Busca entre los hijos de un nodo, nivel por nivel, es por eso el
+         * doble while(), primero revisa sus hijos, luego avanza con los demás nodos.
+         *
+         * @param unNodo
+         * @param unElemento
+         * @return
+         */
         private Object padreAux(NodoGenerico unNodo, Object unElemento)
         {
                 Object elementoPadre = null;
                 if (unNodo != null) {
-                        if (unNodo.getHijoIzquierdo() != null && unNodo.getHijoIzquierdo().equals(unElemento)) {
-                                // El elemento indicado es hijo izquierdo
-                                elementoPadre = unNodo.getElemento();
-                        } else if (unNodo.getHijoIzquierdo() != null && unNodo.getHijoIzquierdo().getHermanoDerecho() != null) {
-                                // Busca en los hermanos de su hijo izquierdo
-                                if (esHermano(unNodo.getHijoIzquierdo(), unElemento))
-                                        // El elemento indicado es hijo derecho
+                        // Recorre los hijos verificando si alguno tiene el elemento buscado
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                        while (hijo != null && elementoPadre == null) {
+                                // Si alguno de los hijos coincide, se encontró el padre
+                                if (hijo.getElemento() != null && hijo.getElemento().equals(unElemento))
                                         elementoPadre = unNodo.getElemento();
-                        } else {
-                                // Busca en su hijo izquierdo
-                                elementoPadre = padreAux(unNodo.getHijoIzquierdo(), unElemento);
-                                if (elementoPadre == null)
-                                        // Si no se encontró, busca en su hermano derecho
-                                        elementoPadre = padreAux(unNodo.getHermanoDerecho(), unElemento);
+                                hijo = hijo.getHermanoDerecho();
+                        }
+                        // Si los hijos del nodo no coinciden con el elemento indicado,
+                        // continúa la búsqueda con sus hijos
+                        if (elementoPadre == null) {
+                                hijo = unNodo.getHijoIzquierdo();
+                                while (hijo != null && elementoPadre == null) {
+                                        elementoPadre = padreAux(hijo, unElemento);
+                                        hijo = hijo.getHermanoDerecho();
+                                }
                         }
                 }
                 return (elementoPadre);
         }
-
-        public boolean esHermano(NodoGenerico unNodo, Object unElemento)
-        {
-                boolean encontrado = false;
-                if (unNodo != null) {
-                        if (unNodo.getElemento().equals(unElemento)) {
-                                encontrado = true;
-                        } else {
-                                encontrado = esHermano(unNodo.getHermanoDerecho(), unElemento);
-                        }
-                }
-                return (encontrado);
-        }
-
+        
         public int altura()
         {
                 return (alturaAux(this.raiz));
@@ -170,6 +175,51 @@ public class ArbolGenerico implements Cloneable
                         alturaMax++;
                 }
                 return (alturaMax);
+        }
+        
+        public Lista listarPreorden()
+        {
+                Lista listaPreorden = new Lista();
+                if (this.raiz != null)
+                        listarPreordenAux(this.raiz, listaPreorden);
+                return (listaPreorden);
+        }
+        
+        private void listarPreordenAux(NodoGenerico unNodo, Lista unaLista)
+        {
+                if (unNodo != null) {
+                        // Se almacena en la lista el elemento del nodo actual
+                        unaLista.insertar(unNodo.getElemento(), unaLista.longitud() + 1);
+                        // Se apunta al hijo izquierdo y se recorre cada uno de los hijos
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                        while (hijo != null) {
+                                listarPreordenAux(hijo, unaLista);
+                                // Se apunta al siguiente hijo
+                                hijo = hijo.getHermanoDerecho();
+                        }
+                }
+        }
+        
+        public Lista listarInorden()
+        {
+                Lista listaInorden = new Lista();
+                if (this.raiz != null)
+                        listarInordenAux(this.raiz, listaInorden);
+                return (listaInorden);
+        }
+        
+        private void listarInordenAux(NodoGenerico unNodo, Lista unaLista)
+        {
+                if (unNodo != null) {
+                        listarInordenAux(unNodo.getHijoIzquierdo(), unaLista);
+                        unaLista.insertar(unNodo.getElemento(), unaLista.longitud() + 1);
+                        
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo() !=  null? unNodo.getHijoIzquierdo().getHermanoDerecho() : null;
+                        while (hijo != null) {
+                                listarInordenAux(hijo, unaLista);
+                                hijo = hijo.getHermanoDerecho();
+                        }
+                }
         }
         
         @Override

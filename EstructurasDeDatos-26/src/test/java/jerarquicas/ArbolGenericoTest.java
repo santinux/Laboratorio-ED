@@ -37,9 +37,15 @@ public class ArbolGenericoTest
                 arbolito.insertar("A", "");
                 arbolito.insertar("B", "A");
                 arbolito.insertar("C", "A");
-                arbolito.insertar("D", "B");
+                arbolito.insertar("D", "A");
                 arbolito.insertar("E", "B");
+                arbolito.insertar("F", "B");
+                arbolito.insertar("G", "C");
+                arbolito.insertar("H", "G");
                 assertEquals("A", arbolito.padre("B"));
+                System.out.println("Padre de A: " + arbolito.padre("A"));
+                System.out.println(arbolito.toString());
+                System.out.println(arbolito.listarInorden());
         }
         
         @Test
@@ -57,5 +63,21 @@ public class ArbolGenericoTest
                 arbolito.insertar("I", "H");
                 System.out.println(arbolito.toString());
                 assertEquals(3, arbolito.altura());
+        }
+        
+        @Test
+        void testListarPreorden()
+        {
+                ArbolGenerico arbolito = new ArbolGenerico();
+                arbolito.insertar("A", "");
+                arbolito.insertar("B", "A");
+                arbolito.insertar("C", "A");
+                arbolito.insertar("D", "A");
+                arbolito.insertar("E", "B");
+                arbolito.insertar("F", "B");
+                arbolito.insertar("G", "C");
+                arbolito.insertar("H", "G");
+                System.out.println(arbolito.listarPreorden().toString());
+                System.out.println(arbolito.toString());
         }
 }

@@ -5,108 +5,146 @@ import lineales.dinamicas.Lista;
 public class ArbolBB
 {
         private NodoBB raiz;
-
+        
         public ArbolBB()
         {
-            this.raiz = null;
+                this.raiz = null;
         }
-
+        
         public boolean insertar(Comparable unElemento)
         {
-            boolean exito = false;
-            if (this.raiz == null) {
-                this.raiz = new NodoBB(unElemento, null, null);
-                exito = true;
-            } else {
-                exito = insertarAux(this.raiz, unElemento);
-            }
-            return (exito);
+                boolean exito = false;
+                if (this.raiz == null) {
+                        this.raiz = new NodoBB(unElemento, null, null);
+                        exito = true;
+                } else {
+                        exito = insertarAux(this.raiz, unElemento);
+                }
+                return (exito);
         }
-
+        
         private boolean insertarAux(NodoBB unNodo, Comparable unElemento)
         {
-            boolean exito = false;
-            if (unNodo != null) {
-                if (unElemento.compareTo(unNodo.getElemento()) < 0) {
-                    // El elemento a insertar es menor que el elemento del nodo actual
-                    if (unNodo.getHijoIzquierdo() == null) {
-                        // Inserta a su izquierda
-                        unNodo.setHijoIzquierdo(new NodoBB(unElemento));
-                        exito = true;
-                    } else {
-                        // Baja por la rama izquierda hasta llegar al último nodo
-                        exito = insertarAux(unNodo.getHijoIzquierdo(), unElemento);
-                    }
-                } else if (unElemento.compareTo(unNodo.getElemento()) > 0) {
-                    // El elemento a insertar es mayor que el elemento del nodo actual
-                    if (unNodo.getHijoDerecho() == null) {
-                        // Inserta a su derecha
-                        unNodo.setHijoDerecho(new NodoBB(unElemento));
-                        exito = true;
-                    } else {
-                        // Baja por la rama derecha hasta llegar al último nodo
-                        exito = insertarAux(unNodo.getHijoDerecho(), unElemento);
-                    }
+                boolean exito = false;
+                if (unNodo != null) {
+                        if (unElemento.compareTo(unNodo.getElemento()) < 0) {
+                                // El elemento a insertar es menor que el elemento del nodo actual
+                                if (unNodo.getHijoIzquierdo() == null) {
+                                        // Inserta a su izquierda
+                                        unNodo.setHijoIzquierdo(new NodoBB(unElemento));
+                                        exito = true;
+                                } else {
+                                        // Baja por la rama izquierda hasta llegar al último nodo
+                                        exito = insertarAux(unNodo.getHijoIzquierdo(), unElemento);
+                                }
+                        } else if (unElemento.compareTo(unNodo.getElemento()) > 0) {
+                                // El elemento a insertar es mayor que el elemento del nodo actual
+                                if (unNodo.getHijoDerecho() == null) {
+                                        // Inserta a su derecha
+                                        unNodo.setHijoDerecho(new NodoBB(unElemento));
+                                        exito = true;
+                                } else {
+                                        // Baja por la rama derecha hasta llegar al último nodo
+                                        exito = insertarAux(unNodo.getHijoDerecho(), unElemento);
+                                }
+                        }
+                        // Si al comparar retorna 0, es porque son iguales
+                        // No se aceptan elementos duplicados, retorna false
                 }
-                // Si al comparar retorna 0, es porque son iguales
-                // No se aceptan elementos duplicados, retorna false
-            }
-            return (exito);
+                return (exito);
         }
-
+        
         // TODO eliminar
-
+        
         public boolean pertenece(Comparable unElemento)
         {
-            boolean exito = false;
-            if (this.raiz != null)
-                exito = perteneceAux(this.raiz, unElemento);
-            return (exito);
+                boolean exito = false;
+                if (this.raiz != null)
+                        exito = perteneceAux(this.raiz, unElemento);
+                return (exito);
         }
-
+        
         private boolean perteneceAux(NodoBB unNodo, Comparable unElemento)
         {
-            boolean exito = false;
-            if (unElemento.compareTo(unNodo.getElemento()) == 0) {
-                // El elemento en el nodo actual coincide con el buscado
-                exito = true;
-            } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
-                // El elemento a buscar es menor que el elemento del nodo actual
-                exito = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
-            } else {
-                // El elemento a buscar es mayor que el elemento del nodo actual
-                exito = perteneceAux(unNodo.getHijoDerecho(), unElemento);
-            }
-            return (exito);
+                boolean exito = false;
+                if (unElemento.compareTo(unNodo.getElemento()) == 0) {
+                        // El elemento en el nodo actual coincide con el buscado
+                        exito = true;
+                } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
+                        // El elemento a buscar es menor que el elemento del nodo actual
+                        exito = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
+                } else {
+                        // El elemento a buscar es mayor que el elemento del nodo actual
+                        exito = perteneceAux(unNodo.getHijoDerecho(), unElemento);
+                }
+                return (exito);
         }
-
+        
+        public Comparable minimoElemento()
+        {
+                return (minimoElementoAux(this.raiz));
+        }
+        
+        private Comparable minimoElementoAux(NodoBB unNodo)
+        {
+                Comparable minimo = null;
+                if (unNodo != null) {
+                        if (unNodo.getHijoIzquierdo() == null) {
+                                // Si no tiene hijo izquierdo, el nodo tiene el mínimo elemento
+                                minimo = unNodo.getElemento();
+                        } else {
+                                // Si tiene hijo izquierdo, busca en esa rama
+                                minimo = minimoElementoAux(unNodo.getHijoIzquierdo());
+                        }
+                }
+                return (minimo);
+        }
+        
+        public Comparable maximoElemento()
+        {
+                return (maximoElementoAux(this.raiz));
+        }
+        
+        private Comparable maximoElementoAux(NodoBB unNodo)
+        {
+                Comparable maximo = null;
+                if (unNodo != null) {
+                        if (unNodo.getHijoDerecho() == null) {
+                                maximo = unNodo.getElemento();
+                        } else {
+                                maximo = maximoElementoAux(unNodo.getHijoDerecho());
+                        }
+                }
+                return (maximo);
+        }
+        
         public boolean esVacio()
         {
-            return(this.raiz == null);
+                return (this.raiz == null);
         }
-
+        
         public void vaciar()
         {
-            this.raiz = null;
+                this.raiz = null;
         }
-
+        
         public Lista listar()
         {
-            Lista listaInorden = new Lista();
-            if (this.raiz != null)
-                listarAux(this.raiz, listaInorden);
-            return (listaInorden);
+                Lista listaInorden = new Lista();
+                if (this.raiz != null)
+                        listarAux(this.raiz, listaInorden);
+                return (listaInorden);
         }
-
+        
         private void listarAux(NodoBB unNodo, Lista unaLista)
         {
-            if (unNodo != null) {
-                listarAux(unNodo.getHijoIzquierdo(), unaLista);
-                unaLista.insertar(unNodo.getElemento(), unaLista.longitud() + 1);
-                listarAux(unNodo.getHijoDerecho(), unaLista);
-            }
+                if (unNodo != null) {
+                        listarAux(unNodo.getHijoIzquierdo(), unaLista);
+                        unaLista.insertar(unNodo.getElemento(), unaLista.longitud() + 1);
+                        listarAux(unNodo.getHijoDerecho(), unaLista);
+                }
         }
-
+        
         /**
          * Genera una cadena de caracteres formada por todos los nodos del árbol,
          * mostrando para cada uno su elemento, hijo izquierdo e hijo derecho.

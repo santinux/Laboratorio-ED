@@ -145,6 +145,29 @@ public class ArbolBB
                 }
         }
         
+        public Lista listarRango(Comparable elementoMinimo, Comparable elementoMaximo)
+        {
+                Lista listaRango = new Lista();
+                if (this.raiz != null)
+                        listarRangoAux(this.raiz, listaRango, elementoMinimo, elementoMaximo);
+                return (listaRango);
+        }
+        
+        private void listarRangoAux(NodoBB unNodo, Lista unaLista, Comparable unElemMin, Comparable unElemMax)
+        {
+                if (unNodo != null) {
+                        if (unNodo.getElemento().compareTo(unElemMin) > 0)
+                                // El elemento del nodo actual es mayor que el mínimo, recorre su HI
+                                listarRangoAux(unNodo.getHijoIzquierdo(), unaLista, unElemMin, unElemMax);
+                        if (unNodo.getElemento().compareTo(unElemMin) >= 0 && unNodo.getElemento().compareTo(unElemMax) <= 0)
+                                // El elemento del nodo actual está dentro del rango a listar, se inserta
+                                unaLista.insertar(unNodo.getElemento(), unaLista.longitud() + 1);
+                        if (unNodo.getElemento().compareTo(unElemMax) < 0)
+                                // El elemento del nodo actual es menor que el máximo, recorre su HD
+                                listarRangoAux(unNodo.getHijoDerecho(), unaLista, unElemMin, unElemMax);
+                }
+        }
+        
         /**
          * Genera una cadena de caracteres formada por todos los nodos del árbol,
          * mostrando para cada uno su elemento, hijo izquierdo e hijo derecho.

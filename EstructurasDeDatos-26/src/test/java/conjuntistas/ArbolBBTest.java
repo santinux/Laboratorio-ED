@@ -58,4 +58,19 @@ public class ArbolBBTest
                 System.out.println("Listado rango (1,4): " + arbolito.listarRango(1,4).toString());
                 System.out.println("Listado rango (3,5): " + arbolito.listarRango(3,5).toString());
         }
+        
+        @Test
+        void testClone()
+        {
+                ArbolBB arbolito = new ArbolBB();
+                arbolito.insertar("C");
+                arbolito.insertar("A");
+                arbolito.insertar("B");
+                arbolito.insertar("D");
+                arbolito.insertar("E");
+                arbolito.insertar("F");
+                System.out.println("Arbolito: " + arbolito.toString());
+                ArbolBB arbolitoClon = arbolito.clone();
+                System.out.println("Arbolito clon: " + arbolitoClon.toString());
+        }
 }

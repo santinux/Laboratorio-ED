@@ -2,7 +2,7 @@ package conjuntistas;
 
 import lineales.dinamicas.Lista;
 
-public class ArbolBB
+public class ArbolBB implements Cloneable
 {
         private NodoBB raiz;
         
@@ -165,6 +165,24 @@ public class ArbolBB
                         if (unNodo.getElemento().compareTo(unElemMax) < 0)
                                 // El elemento del nodo actual es menor que el máximo, recorre su HD
                                 listarRangoAux(unNodo.getHijoDerecho(), unaLista, unElemMin, unElemMax);
+                }
+        }
+        
+        @Override
+        public ArbolBB clone()
+        {
+                ArbolBB dolly = new ArbolBB();
+                if (this.raiz != null)
+                        cloneAux(this.raiz, dolly);
+                return (dolly);
+        }
+        
+        private void cloneAux(NodoBB unNodo, ArbolBB unArbol)
+        {
+                if (unNodo != null) {
+                        unArbol.insertar(unNodo.getElemento());
+                        cloneAux(unNodo.getHijoIzquierdo(), unArbol);
+                        cloneAux(unNodo.getHijoDerecho(), unArbol);
                 }
         }
         

@@ -2,6 +2,7 @@ package conjuntistas;
 
 import lineales.dinamicas.Lista;
 
+@SuppressWarnings("rawtypes")
 public class ArbolBB implements Cloneable
 {
         private NodoBB raiz;
@@ -54,7 +55,160 @@ public class ArbolBB implements Cloneable
                 return (exito);
         }
         
-        // TODO eliminar
+        public boolean eliminar(Comparable unElemento)
+        {
+                boolean exito = false;
+                if (this.raiz != null)
+                        // Se busca desde la raíz, no tiene padre (null)
+                        exito = eliminarAux(this.raiz, null, unElemento);
+                return (exito);
+        }
+        
+        private boolean eliminarAux(NodoBB unNodo, NodoBB unNodoPadre, Comparable unElemento)
+        {
+                boolean exito = false;
+                if (unNodo != null) {
+                        if (unElemento.compareTo(unNodo.getElemento()) == 0) {
+                                // Se encontró el nodo con el elemento buscado
+                                if (unNodo.getHijoIzquierdo() == null && unNodo.getHijoDerecho() == null) {
+                                        // El nodo no tiene hijos
+                                        eliminarNodoHoja(unNodoPadre, unElemento);
+                                        exito = true;
+                                } else {
+                                        // El nodo tiene hijo/s
+                                        eliminarNodoInterno(unNodoPadre, unElemento);
+                                        exito = true;
+                                }
+                        } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
+                                // El elemento buscado es menor que el del nodo actual, busca en el HI
+                                exito = eliminarAux(unNodo.getHijoIzquierdo(), unNodo, unElemento);
+                        } else {
+                                // El elemento buscado es mayor que el del nodo actual, busca en el HD
+                                exito = eliminarAux(unNodo.getHijoDerecho(), unNodo, unElemento);
+                        }
+                }
+                return (exito);
+        }
+        
+        private void eliminarNodoHoja(NodoBB unNodoPadre, Comparable unElementoHijo)
+        {
+                if (unNodoPadre == null) {
+                        // El elemento está en la raíz
+                        this.raiz = null;
+                } else if (unElementoHijo.compareTo(unNodoPadre.getElemento()) < 0) {
+                        // El elemento está en su hijo izquierdo
+                        unNodoPadre.setHijoIzquierdo(null);
+                } else {
+                        // El elemento está en su hijo derecho
+                        unNodoPadre.setHijoDerecho(null);
+                }
+        }
+        
+        private void eliminarNodoInterno(NodoBB unNodoPadre, Comparable unElementoHijo)
+        {
+                if (unNodoPadre == null) {
+                        // El nodo es la raíz
+                        if (this.raiz.getHijoIzquierdo() != null && this.raiz.getHijoDerecho() == null) {
+                                // Solo tiene hijo izquierdo
+                                this.raiz = this.raiz.getHijoIzquierdo();
+                        } else if (this.raiz.getHijoDerecho() != null && this.raiz.getHijoIzquierdo() == null) {
+                                // Solo tiene hijo derecho
+                                this.raiz = this.raiz.getHijoDerecho();
+                        } else {
+                                // Tiene ambos hijos
+                                // Buscar el mejor candidato a reemplazarla, en este caso el mayor hijo izquierdo
+                                Comparable mayorHI = maximoElementoAux(this.raiz.getHijoIzquierdo());
+                                // Eliminar el nodo con ese elemento, no debe haber duplicados en el árbol
+                                eliminar(mayorHI);
+                                // Reemplazar el elemento de la raíz
+                                this.raiz.setElemento(mayorHI);
+                        }
+                } else {
+                        // El nodo no es la raíz, existe un nodo padre
+                        if (unElementoHijo.compareTo(unNodoPadre.getElemento()) < 0) {
+                                // El nodo a eliminar es el hijo izquierdo, se lo debe reemplazar por alguno de sus nietos
+                                NodoBB nodoHijo = unNodoPadre.getHijoIzquierdo();
+                                if (nodoHijo.getHijoIzquierdo() != null && nodoHijo.getHijoDerecho() == null) {
+                                        // El nodo a eliminar solo tiene hijo izquierdo
+                                        unNodoPadre.setHijoIzquierdo(nodoHijo.getHijoIzquierdo());
+                                } else if (nodoHijo.getHijoDerecho() != null && nodoHijo.getHijoIzquierdo() == null) {
+                                        // El nodo a eliminar solo tiene hijo derecho
+                                        unNodoPadre.setHijoIzquierdo(nodoHijo.getHijoDerecho());
+                                } else {
+                                        // El nodo a eliminar tiene ambos hijos
+                                        // Buscar el mejor candidato a reemplazarlo, en este caso el mayor hijo izquierdo
+                                        Comparable mayorHI = maximoElementoAux(nodoHijo.getHijoIzquierdo());
+                                        // Eliminar el nodo con ese elemento, no debe haber duplicados en el árbol
+                                        eliminar(mayorHI);
+                                        // Reemplazar el elemento del nodo a eliminar
+                                        nodoHijo.setElemento(mayorHI);
+                                }
+                        } else {
+                                // El nodo a eliminar es el hijo derecho, se lo debe reemplazar por alguno de sus nietos
+                                NodoBB nodoHijo = unNodoPadre.getHijoDerecho();
+                                // (Lo mismo que arriba)
+                                if (nodoHijo.getHijoIzquierdo() != null && nodoHijo.getHijoDerecho() == null) {
+                                        // El nodo a eliminar solo tiene hijo izquierdo
+                                        unNodoPadre.setHijoDerecho(nodoHijo.getHijoIzquierdo());
+                                } else if (nodoHijo.getHijoDerecho() != null && nodoHijo.getHijoIzquierdo() == null) {
+                                        // El nodo a eliminar solo tiene hijo derecho
+                                        unNodoPadre.setHijoDerecho(nodoHijo.getHijoDerecho());
+                                } else {
+                                        // El nodo a eliminar tiene ambos hijos
+                                        // Buscar el mejor candidato a reemplazarlo, en este caso el mayor hijo izquierdo
+                                        Comparable mayorHI = maximoElementoAux(nodoHijo.getHijoIzquierdo());
+                                        // Eliminar el nodo con ese elemento, no debe haber duplicados en el árbol
+                                        eliminar(mayorHI);
+                                        // Reemplazar el elemento del nodo a eliminar
+                                        nodoHijo.setElemento(mayorHI);
+                                }
+                        }
+                }
+        }
+        
+        /*
+        // TODO | ya no me sale nada. Debería ser más eficiente que el eliminar(unElemento),
+        // TODO | ya que sabemos donde estamos exáctamente (en el hijo extremo derecho del árbol).
+        public void eliminarMaximo()
+        {
+                // Borra desde la raíz, no tiene padre (null)
+                //eliminarMaximoAux(this.raiz, null);
+        }
+        
+        private void eliminarMaximoAux(NodoBB unNodo, NodoBB unNodoPadre)
+        {
+                if (unNodo != null) {
+                        if (unNodo.getHijoDerecho() != null)
+                }
+        }
+        */
+        
+        private Comparable padre(Comparable unElemento)
+        {
+                Comparable elementoPadre = null;
+                if (this.raiz != null)
+                        elementoPadre = padreAux(this.raiz, unElemento);
+                return (elementoPadre);
+        }
+        
+        private Comparable padreAux(NodoBB unNodo, Comparable unElemento)
+        {
+                Comparable elementoPadre = null;
+                if (unNodo != null) {
+                        if (unElemento.compareTo(unNodo.getHijoIzquierdo().getElemento()) == 0
+                                || unElemento.compareTo(unNodo.getHijoDerecho().getElemento()) == 0) {
+                                // El elemento de alguno de sus hijos coincide con el buscado
+                                elementoPadre = unNodo.getElemento();
+                        } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
+                                // El elemento buscado es menor que el del nodo actual
+                                elementoPadre = padreAux(unNodo.getHijoIzquierdo(), unElemento);
+                        } else {
+                                // El elemento buscado es mayor que el del nodo actual
+                                elementoPadre = padreAux(unNodo.getHijoDerecho(), unElemento);
+                        }
+                }
+                return (elementoPadre);
+        }
         
         public boolean pertenece(Comparable unElemento)
         {
@@ -67,15 +221,17 @@ public class ArbolBB implements Cloneable
         private boolean perteneceAux(NodoBB unNodo, Comparable unElemento)
         {
                 boolean exito = false;
-                if (unElemento.compareTo(unNodo.getElemento()) == 0) {
-                        // El elemento en el nodo actual coincide con el buscado
-                        exito = true;
-                } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
-                        // El elemento a buscar es menor que el elemento del nodo actual
-                        exito = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
-                } else {
-                        // El elemento a buscar es mayor que el elemento del nodo actual
-                        exito = perteneceAux(unNodo.getHijoDerecho(), unElemento);
+                if (unNodo != null) {
+                        if (unElemento.compareTo(unNodo.getElemento()) == 0) {
+                                // El elemento en el nodo actual coincide con el buscado
+                                exito = true;
+                        } else if (unElemento.compareTo(unNodo.getElemento()) < 0) {
+                                // El elemento a buscar es menor que el elemento del nodo actual
+                                exito = perteneceAux(unNodo.getHijoIzquierdo(), unElemento);
+                        } else {
+                                // El elemento a buscar es mayor que el elemento del nodo actual
+                                exito = perteneceAux(unNodo.getHijoDerecho(), unElemento);
+                        }
                 }
                 return (exito);
         }
@@ -168,6 +324,7 @@ public class ArbolBB implements Cloneable
                 }
         }
         
+        @SuppressWarnings("CloneDoesntCallSuperClone")
         @Override
         public ArbolBB clone()
         {

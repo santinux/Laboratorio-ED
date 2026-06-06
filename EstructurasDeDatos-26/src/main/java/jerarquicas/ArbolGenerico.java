@@ -231,6 +231,19 @@ public class ArbolGenerico implements Cloneable
                 return (arbolString.append("\n]").toString());
         }
         
+        /**
+         * Genera una cadena con los elementos del árbol en formato JSON.
+         *
+         * @return String con los elementos del árbol.
+         */
+        public String toJSONString()
+        {
+                StringBuilder arbolString = new StringBuilder("{");
+                if (this.raiz != null)
+                        toJSONStringAux(this.raiz, arbolString);
+                return (arbolString.append("}").toString());
+        }
+        
         private void toStringAux(NodoGenerico unNodo, StringBuilder unString)
         {
                 if (unNodo != null) {
@@ -272,6 +285,30 @@ public class ArbolGenerico implements Cloneable
                                 .append(" ]");
                         toStringAux(unNodo.getHijoIzquierdo(), unString);
                         toStringAux(unNodo.getHermanoDerecho(), unString);
+                }
+        }
+        
+        /**
+         * Aprovecha el recorrido en preorden para agregar a cada hijo todos sus
+         * hijos dentro respetando el formato JSON.
+         *
+         * @param unNodo El nodo que va a recorrer cada nodo del árbol
+         * @param unString StringBuilder para poder hacer appends por referencia
+         */
+        private void toJSONStringAux(NodoGenerico unNodo, StringBuilder unString)
+        {
+                if (unNodo != null) {
+                        unString.append("\"")
+                                .append(unNodo.getElemento() != null? unNodo.getElemento() : "")
+                                .append("\":{");
+                        NodoGenerico hijo = unNodo.getHijoIzquierdo();
+                        while (hijo != null) {
+                                toJSONStringAux(hijo, unString);
+                                hijo = hijo.getHermanoDerecho();
+                                if (hijo != null)
+                                        unString.append(",");
+                        }
+                        unString.append("}");
                 }
         }
 }

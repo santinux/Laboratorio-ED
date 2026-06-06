@@ -80,4 +80,23 @@ public class ArbolGenericoTest
                 System.out.println(arbolito.listarPreorden().toString());
                 System.out.println(arbolito.toString());
         }
+        
+        @Test
+        public void testToJSONString()
+        {
+                ArbolGenerico arbolito = new ArbolGenerico();
+                arbolito.insertar("A", "");
+                arbolito.insertar("B", "A");
+                arbolito.insertar("C", "A");
+                arbolito.insertar("D", "A");
+                arbolito.insertar("E", "B");
+                arbolito.insertar("F", "B");
+                arbolito.insertar("G", "C");
+                arbolito.insertar("H", "G");
+                System.out.println(arbolito.toJSONString());
+                System.out.println("Para verificar que los elementos están en preorden:");
+                System.out.println(arbolito.listarPreorden().toString());
+                System.out.println("Para verificar los enlaces del árbol:");
+                System.out.println(arbolito);
+        }
 }

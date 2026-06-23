@@ -29,7 +29,7 @@ public class Cola implements Cloneable
          * Coloca un nuevo elemento en el final de la cola.
          *
          * @param unElemento El elemento que se desea colocar en la cola.
-         * @return true si la operación fué exitosa, siempre lo es en cola dinámica.
+         * @return true si la operación fue exitosa, siempre lo es en cola dinámica.
          */
         public boolean poner(Object unElemento)
         {
@@ -48,7 +48,7 @@ public class Cola implements Cloneable
         /**
          * Quita el elemento en el frente de la cola, si no está vacía.
          *
-         * @return true si la operación fué exitosa, en cola vacía retorna false.
+         * @return true si la operación fue exitosa, en cola vacía retorna false.
          */
         public boolean sacar()
         {
@@ -106,6 +106,7 @@ public class Cola implements Cloneable
          * @return Un clon de la cola original (como la oveja Dolly).
          */
         @Override
+        @SuppressWarnings("CloneDoesntCallSuperClone")
         public Cola clone()
         {
                 Cola dolly = new Cola();

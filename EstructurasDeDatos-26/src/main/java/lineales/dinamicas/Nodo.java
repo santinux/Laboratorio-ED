@@ -1,7 +1,7 @@
 package lineales.dinamicas;
 
 /**
- * Implementación del TDA Nodo
+ * Implementación del TDA Nodo.
  *
  * @author <a href="https://www.github.com/santinux">Santino Fuentes</a>
  * @version 3.0
@@ -10,51 +10,57 @@ public class Nodo
 {
         private Object elemento;
         private Nodo enlace;
-
+        
         /**
-         * Crea un nodo a partir de los parámetros.
+         * Constructor con parámetros de la clase Nodo.
+         * Inicializa un nodo a partir del elemento y enlace indicados.
          *
-         * @param unElemento
-         * @param unEnlace
+         * @param unElemento El elemento a almacenar en el nodo.
+         * @param unEnlace   El nodo al que enlaza.
          */
-        public Nodo(Object unElemento, Nodo unEnlace) {
+        public Nodo(Object unElemento, Nodo unEnlace)
+        {
                 this.elemento = unElemento;
                 this.enlace = unEnlace;
         }
-
+        
         /**
-         * Modifica el elemento del nodo.
+         * Establece el elemento del nodo.
          *
-         * @param unElemento
+         * @param unElemento El nuevo elemento a almacenar.
          */
-        public void setElemento(Object unElemento) {
+        public void setElemento(Object unElemento)
+        {
                 this.elemento = unElemento;
         }
-
+        
         /**
-         * Modifica el enlace del nodo.
+         * Establece el nodo enlace del nodo.
          *
-         * @param unEnlace
+         * @param unEnlace El nuevo nodo enlace.
          */
-        public void setEnlace(Nodo unEnlace) {
+        public void setEnlace(Nodo unEnlace)
+        {
                 this.enlace = unEnlace;
         }
-
+        
         /**
-         * Devuelve el elemento del nodo.
+         * Retorna el elemento almacenado en el nodo.
          *
-         * @return Object
+         * @return El elemento del nodo.
          */
-        public Object getElemento() {
-                return this.elemento;
+        public Object getElemento()
+        {
+                return (this.elemento);
         }
-
+        
         /**
-         * Devuelve el nodo enlace del nodo.
+         * Retorna el nodo enlace del nodo.
          *
-         * @return Nodo
+         * @return El nodo enlace.
          */
-        public Nodo getEnlace() {
-                return this.enlace;
+        public Nodo getEnlace()
+        {
+                return (this.enlace);
         }
 }

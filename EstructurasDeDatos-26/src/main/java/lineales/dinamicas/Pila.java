@@ -13,33 +13,35 @@ public class Pila implements Cloneable
          * - Pila vacía: tope == null
          */
         private Nodo tope;
-
+        
         /**
          * Constructor por defecto de la clase Pila.
          * Inicializa una pila vacía estableciendo el tope en null.
          */
-        public Pila() {
+        public Pila()
+        {
                 this.tope = null;
         }
-
+        
         /**
          * Coloca un nuevo elemento en el tope de la pila.
          *
          * @param unElemento El elemento que se desea agregar a la pila.
-         * @return true si el elemento se agregó correctamente.
+         * @return true si el elemento se agregó correctamente (siempre).
          */
-        public boolean apilar(Object unElemento) {
-                Nodo nuevoNodo = new Nodo(unElemento, this.tope);
-                this.tope = nuevoNodo;
+        public boolean apilar(Object unElemento)
+        {
+                this.tope = new Nodo(unElemento, this.tope);
                 return (true);
         }
-
+        
         /**
          * Quita el elemento en el tope de la pila, si no está vacía.
          *
-         * @return true si el desapilado fué exitoso, en pila vacía retorna false.
+         * @return true si el desapilado fue exitoso, en pila vacía retorna false.
          */
-        public boolean desapilar() {
+        public boolean desapilar()
+        {
                 boolean exito = false;
                 if (this.tope != null) {
                         this.tope = this.tope.getEnlace();
@@ -47,35 +49,38 @@ public class Pila implements Cloneable
                 }
                 return (exito);
         }
-
+        
         /**
          * Retorna el elemento en el tope de la pila.
          *
          * @return El elemento ubicado en el tope, null si está vacía.
          */
-        public Object obtenerTope() {
+        public Object obtenerTope()
+        {
                 Object elementoEnTope = null;
                 if (this.tope != null)
                         elementoEnTope = this.tope.getElemento();
                 return (elementoEnTope);
         }
-
+        
         /**
          * Verifica si la pila está vacía, sin elementos.
          *
          * @return true si la pila no contiene elementos, false en caso contrario.
          */
-        public boolean esVacia() {
+        public boolean esVacia()
+        {
                 return (this.tope == null);
         }
-
+        
         /**
          * Vacía completamente la pila, estableciendo su tope en null.
          */
-        public void vaciar() {
+        public void vaciar()
+        {
                 this.tope = null;
         }
-
+        
         /**
          * Retorna una copia exacta de los datos en la estructura original, y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
@@ -83,7 +88,9 @@ public class Pila implements Cloneable
          * @return Un clon de la pila original (como la oveja Dolly).
          */
         @Override
-        public Pila clone() {
+        @SuppressWarnings("CloneDoesntCallSuperClone")
+        public Pila clone()
+        {
                 Pila dolly = new Pila();
                 if (this.tope != null) {
                         Pila dollyInvertida = new Pila();
@@ -94,20 +101,21 @@ public class Pila implements Cloneable
                 }
                 return (dolly);
         }
-
+        
         /**
          * Helper de clone().
          *
-         * @param unNodo Nodo que recorrerá la estructura.
+         * @param unNodo  Nodo que recorrerá la estructura.
          * @param unaPila Pila en la que se copiarán los elementos.
          */
-        private void cloneAux(Nodo unNodo, Pila unaPila) {
+        private void cloneAux(Nodo unNodo, Pila unaPila)
+        {
                 if (unNodo != null) {
                         unaPila.apilar(unNodo.getElemento());
                         cloneAux(unNodo.getEnlace(), unaPila);
                 }
         }
-
+        
         /**
          * Genera una cadena de caracteres formada por todos los elementos
          * de la pila en formato [3,2,1], siendo '3' el tope.
@@ -115,20 +123,22 @@ public class Pila implements Cloneable
          * @return Cadena con los elementos de la pila.
          */
         @Override
-        public String toString() {
+        public String toString()
+        {
                 StringBuilder pilaString = new StringBuilder("[");
                 if (this.tope != null)
                         toStringAux(this.tope, pilaString);
                 return (pilaString.append("]").toString());
         }
-
+        
         /**
          * Helper de toString().
          *
-         * @param unNodo Nodo que recorrerá la estructura.
+         * @param unNodo   Nodo que recorrerá la estructura.
          * @param unString Cadena en la que se escribirán los elementos encontrados.
          */
-        private void toStringAux(Nodo unNodo, StringBuilder unString) {
+        private void toStringAux(Nodo unNodo, StringBuilder unString)
+        {
                 if (unNodo != null) {
                         unString.append(unNodo.getElemento());
                         if (unNodo.getEnlace() != null)

@@ -29,9 +29,9 @@ public class Pila implements Cloneable
         
         /**
          * Coloca un nuevo elemento en el tope de la pila, si no está llena.
-         * 
+         *
          * @param unElemento El elemento que se desea colocar en la pila.
-         * @return true si el apilado fué exitoso, en pila llena retorna false.
+         * @return true si el apilado fue exitoso, en pila llena retorna false.
          */
         public boolean apilar(Object unElemento)
         {
@@ -48,8 +48,8 @@ public class Pila implements Cloneable
         
         /**
          * Quita el elemento en el tope de la pila, si no está vacía.
-         * 
-         * @return true si el desapilado fué exitoso, en pila vacía retorna false.
+         *
+         * @return true si el desapilado fue exitoso, en pila vacía retorna false.
          */
         public boolean desapilar()
         {
@@ -66,7 +66,7 @@ public class Pila implements Cloneable
         
         /**
          * Retorna el elemento en el tope de la pila.
-         * 
+         *
          * @return El elemento ubicado en el tope, null si está vacía.
          */
         public Object obtenerTope()
@@ -103,10 +103,11 @@ public class Pila implements Cloneable
         /**
          * Retorna una copia exacta de los datos en la estructura original y
          * respetando el orden de los mismos, en otra estructura del mismo tipo.
-         * 
+         *
          * @return Un clon de la pila original (como la oveja Dolly).
          */
         @Override
+        @SuppressWarnings("CloneDoesntCallSuperClone")
         public Pila clone()
         {
                 Pila dolly = new Pila();
@@ -120,7 +121,7 @@ public class Pila implements Cloneable
         /**
          * Genera una cadena de caracteres formada por todos los elementos
          * de la pila en formato [3,2,1], siendo '3' el tope.
-         * 
+         *
          * @return Cadena con los elementos de la pila.
          */
         @Override
